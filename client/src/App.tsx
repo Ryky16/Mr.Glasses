@@ -43,9 +43,9 @@ export default function App() {
       <section className="bg-gradient-to-b from-yellow-600 to-yellow-400 py-16 text-black">
         <div className="max-w-6xl mx-auto text-center px-4">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Lunettes de Qualité à Prix Doux
+            Des montures de Qualité à des Prix raisonnables
           </h2>
-          <p className="text-2xl mb-8">Dakar • Thiès • Saint-Louis • Toute la livraison Sénégal</p>
+          <p className="text-2xl mb-8">Dakar • Ziguinchor • Thiès • Saint-Louis • livraison partout au Sénégal</p>
           <button onClick={() => openWhatsApp("votre catalogue complet")} 
                   className="btn-jaune text-2xl px-12 py-6">
             Voir toutes les lunettes sur WhatsApp 📲
