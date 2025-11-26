@@ -1,78 +1,82 @@
 import { useState } from 'react'
-import { Headphones, Sun, Eye, Clock, MapPin, Phone } from 'lucide-react'
+import { Phone, Sun, Eye, Sparkles, Truck, ShieldCheck } from 'lucide-react'
 
 export default function App() {
-  const phone = "221767913986" // sans le +
-  const openWhatsApp = (model: string) => {
-    const message = `Bonjour Peter Optique 👋\nJe suis intéressé par : *${model}*\nPouvez-vous me donner plus d'infos et le prix s'il vous plaît ?`
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank')
-  }
+  const phone = "221767913986"
+  const wa = (msg: string) => window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank')
 
-  // Exemples de lunettes (tu les remplaceras plus tard depuis l'admin)
   const lunettes = [
-    { id: 1, nom: "Ray-Ban Aviator Classic", prix: "35 000 FCFA", categorie: "Solaire", type: "Homme" },
-    { id: 2, nom: "Photogrey Intelligent", prix: "45 000 FCFA", categorie: "Photogrey", type: "Mixte" },
-    { id: 3, nom: "Lunettes de vue Anti-lumière bleue", prix: "Sur devis", categorie: "Vue", type: "Femme" },
-    { id: 4, nom: "Oakley Sport", prix: "55 000 FCFA", categorie: "Solaire", type: "Homme" },
-    { id: 5, nom: "Lunettes Enfants Disney", prix: "25 000 FCFA", categorie: "Solaire", type: "Enfant" },
-    { id: 6, nom: "Carrera Pilot", prix: "40 000 FCFA", categorie: "Photogrey", type: "Mixte" },
+    { nom: "Aviator Gold Edition", prix: "38 000 FCFA", type: "Solaire", nouveau: true },
+    { nom: "Photogrey Intelligent Pro", prix: "48 000 FCFA", type: "Photogrey", promo: true },
+    { nom: "Lunettes de vue Premium", prix: "Sur devis", type: "Vue", ordonnance: true },
+    { nom: "Sport Performance", prix: "55 000 FCFA", type: "Solaire", nouveau: true },
+    { nom: "Enfant Mickey 2025", prix: "28 000 FCFA", type: "Enfant", promo: true },
+    { nom: "Carrera Black Edition", prix: "45 000 FCFA", type: "Photogrey" },
   ]
 
   return (
     <>
-      {/* Bouton WhatsApp flottant géant */}
-      <a href={`https://wa.me/${phone}?text=Bonjour%20Peter%20Optique%20%F0%9F%91%8B%20Je%20visite%20votre%20site`} 
-         className="btn-whatsapp" target="_blank">
-        <Phone className="w-8 h-8" />
-      </a>
-
-      {/* Header */}
-      <header className="bg-black border-b-4 border-yellow-400 py-4 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-yellow-400">
-            PETER OPTIQUE
-          </h1>
-          <div className="flex items-center gap-3 bg-green-600 px-4 py-2 rounded-full">
-            <Phone className="w-5 h-5" />
-            <span className="font-bold">+221 76 791 3986</span>
-          </div>
-        </div>
-      </header>
+      {/* Bouton WhatsApp flottant */}
+      <button onClick={() => wa("Bonjour Peter Optique 👋 Je regarde vos lunettes")} className="btn-whatsapp">
+        <Phone className="w-9 h-9" />
+      </button>
 
       {/* Hero */}
-      <section className="bg-gradient-to-b from-yellow-600 to-yellow-400 py-16 text-black">
-        <div className="max-w-6xl mx-auto text-center px-4">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Des montures de Qualité à des Prix raisonnables
-          </h2>
-          <p className="text-2xl mb-8">Dakar • Ziguinchor • Thiès • Saint-Louis • livraison partout au Sénégal</p>
-          <button onClick={() => openWhatsApp("votre catalogue complet")} 
-                  className="btn-jaune text-2xl px-12 py-6">
-            Voir toutes les lunettes sur WhatsApp 📲
-          </button>
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-500 via-teal-500 to-cyan-500 py-24">
+        <div className="absolute inset-0 bg-white opacity-10"></div>
+        <div className="relative max-w-6xl mx-auto px-6 text-center">
+          <h1 className="title-gradient mb-6 animate-fade-in">
+            PETER OPTIQUE
+          </h1>
+          <p className="text-white text-2xl md:text-4xl font-semibold mb-10">
+            Vos lunettes de rêve à prix doux
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <button onClick={() => wa("Bonjour, je veux voir tout le catalogue")} className="btn-primary text-xl">
+              Voir le catalogue complet
+            </button>
+            <button onClick={() => wa("Bonjour, j'ai une ordonnance")} className="bg-white text-blue-600 font-bold py-5 px-10 rounded-2xl text-xl hover:bg-gray-100 transition">
+              Envoyer mon ordonnance
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Grille des lunettes */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12 text-yellow-400">
-          Nos Modèles les Plus Vendus
+      {/* Avantages */}
+      <section className="py-16 bg-gray-100">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {[{icon: Sparkles, text: "Modèles 2025"}, {icon: Truck, text: "Livraison partout"}, {icon: ShieldCheck, text: "Garantie 1 an"}, {icon: Phone, text: "Réponse en 2 min"}].map((i, idx) => (
+            <div key={idx} className="animate-fade-up" style={{animationDelay: `${idx*200}ms`}}>
+              <i.icon className="w-12 h-12 mx-auto text-orange-500 mb-3" />
+              <p className="font-semibold">{i.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Grille lunettes */}
+      <section className="py-20 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+          Nos meilleures ventes
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {lunettes.map(l => (
-            <div key={l.id} className="card-lunette">
-              {/* Image placeholder (tu mettras les vraies après) */}
-              <div className="bg-gray-800 h-64 flex items-center justify-center">
-                <Eye className="w-24 h-24 text-gray-600" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {lunettes.map((l, i) => (
+            <div key={i} className="card animate-fade-up" style={{animationDelay: `${i*150}ms`}}>
+              <div className="relative">
+                <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-80 flex items-center justify-center">
+                  <Sun className="w-32 h-32 text-gray-500" />
+                </div>
+                {l.nouveau && <span className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold">Nouveau</span>}
+                {l.promo && <span className="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">Promo</span>}
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-yellow-400">{l.nom}</h3>
-                <p className="text-gray-400 mt-2">{l.categorie} • {l.type}</p>
-                <p className="text-3xl font-bold mt-4">{l.prix}</p>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">{l.nom}</h3>
+                <p className="text-gray-600 mb-4">{l.type}</p>
+                <p className="text-3xl font-extrabold text-orange-500 mb-6">{l.prix}</p>
                 <button 
-                  onClick={() => openWhatsApp(l.nom + " - " + l.prix)}
-                  className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl text-xl transition">
-                  Commander sur WhatsApp 🚀
+                  onClick={() => wa(`Bonjour 👋\nJe veux la : *${l.nom}* (${l.prix})\nC'est encore dispo ?`)}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-5 rounded-2xl text-xl transition transform hover:scale-105">
+                  Commander sur WhatsApp
                 </button>
               </div>
             </div>
@@ -81,9 +85,9 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 py-12 text-center">
-        <p className="text-yellow-400 text-xl">Peter Optique © 2025 - Tous droits réservés</p>
-        <p className="mt-4">Dakar, Sénégal • Livraison partout au Sénégal</p>
+      <footer className="bg-gradient-to-r from-blue-600 to-teal-600 text-white py-12 text-center">
+        <p className="text-3xl font-bold">Peter Optique • Dakar & Toute le Sénégal</p>
+        <p className="text-xl mt-4">WhatsApp : +221 76 791 3986</p>
       </footer>
     </>
   )
