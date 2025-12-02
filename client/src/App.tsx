@@ -1,8 +1,19 @@
+import { useState } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
-import { Phone, Upload, Sun, Eye, Sparkles, Baby, ShieldCheck, Truck } from 'lucide-react'
+import { Phone, Upload, Sun, Menu, X, Eye } from 'lucide-react'
+
+interface Lunette {
+  id: number;
+  nom: string;
+  prix: string;
+  categorie: string;
+  genre: string;
+  nouveau?: boolean;
+  promo?: boolean;
+}
 
 // Données temporaires (plus tard tu les géreras depuis l'admin)
-const lunettesData = [
+const lunettesData: Lunette[] = [
   { id: 1, nom: "Aviator Gold Premium", prix: "38 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true },
   { id: 2, nom: "Cat Eye Fashion 2025", prix: "42 000 FCFA", categorie: "soleil", genre: "femme", promo: true },
   { id: 3, nom: "Photogrey Intelligent React", prix: "52 000 FCFA", categorie: "photogrey", genre: "mixte" },
@@ -12,31 +23,111 @@ const lunettesData = [
 ]
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
-  const isActive = (path: string) => location.pathname === path ? "text-orange-500 border-b-4 border-orange-500" : "text-gray-700 hover:text-orange-500"
+  
+  const isActive = (path: string) => 
+    location.pathname === path ? "text-orange-500 font-bold" : "text-gray-700 hover:text-orange-500"
+
+  const navItems = [
+    { label: "Accueil", path: "/" },
+    { label: "Lunettes de Soleil", path: "/soleil" },
+    { label: "Photogrey", path: "/photogrey" },
+    { label: "Enfant", path: "/enfant" },
+  ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center">
-            <Eye className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-            PETER OPTIQUE
-          </h1>
-        </Link>
+    <header className="sticky top-0 z-50 bg-white shadow-lg border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
 
-        <nav className="flex flex-wrap justify-center gap-3 sm:gap-8 text-lg font-semibold">
-          <Link to="/" className={isActive("/") + " pb-2 px-2"}>Accueil</Link>
-          <Link to="/soleil" className={isActive("/soleil") + " pb-2 px-2"}>Lunettes de Soleil</Link>
-          <Link to="/photogrey" className={isActive("/photogrey") + " pb-2 px-2"}>Photogrey</Link>
-          <Link to="/enfant" className={isActive("/enfant") + " pb-2 px-2"}>Enfant</Link>
-          <Link to="/ordonnance" className="pb-2 px-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-full hover:shadow-xl transition">
-            Déposer Ordonnance
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+              <Eye className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent hidden sm:block">
+              PETER OPTIQUE
+            </h1>
           </Link>
-        </nav>
+
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center gap-8 text-lg font-medium">
+            {navItems.map(item => (
+              <Link key={item.path} to={item.path} className={isActive(item.path) + " transition"}>
+                {item.label}
+              </Link>
+            ))}
+            <Link 
+              to="/ordonnance" 
+              className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-6 py-3 rounded-full font-bold hover:shadow-xl transition transform hover:scale-105"
+            >
+              Déposer Ordonnance
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-3 rounded-lg hover:bg-gray-100 transition"
+          >
+            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <>
+          {/* Fond semi-transparent */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          
+          {/* Menu qui glisse depuis la droite */}
+          <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out md:hidden">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-black text-teal-600">Menu</h2>
+                <button onClick={() => setMobileMenuOpen(false)} className="p-2">
+                  <X className="w-8 h-8" />
+                </button>
+              </div>
+            </div>
+
+            <nav className="p-6 space-y-6">
+              {navItems.map(item => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block text-2xl font-semibold transition ${isActive(item.path)}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link
+                to="/ordonnance"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-center bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-5 px-8 rounded-2xl text-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition"
+              >
+                Déposer Ordonnance
+              </Link>
+            </nav>
+
+            <div className="absolute bottom-8 left-6 right-6">
+              <div className="bg-gray-100 rounded-2xl p-6 text-center">
+                <p className="text-sm text-gray-600">Besoin d’aide ?</p>
+                <a href="https://wa.me/221767913986" className="inline-flex items-center gap-3 mt-3 text-green-600 font-bold text-lg">
+                  <Phone className="w-6 h-6" />
+                  +221 76 791 39 86
+                </a>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </header>
   )
 }
@@ -61,7 +152,7 @@ function WhatsAppButton({ model }: { model?: string }) {
   )
 }
 
-function Card({ lunette }: { lunette: any }) {
+function Card({ lunette }: { lunette: Lunette }) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
       <div className="relative">
@@ -165,7 +256,7 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-blue-700 to-teal-700 text-white py-16 text-center">
         <p className="text-4xl font-black">PETER OPTIQUE</p>
-        <p className="text-2xl mt-4">WhatsApp : +221 76 791 3986</p>
+        <p className="text-2xl mt-4">WhatsApp : +221 76 791 39 86</p>
         <p className="mt-6">© 2025 – Tous droits réservés – Dakar, Sénégal</p>
       </footer>
     </>
