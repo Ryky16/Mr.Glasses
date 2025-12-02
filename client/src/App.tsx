@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
-import { Phone, Upload, CheckCircle, Image as ImageIcon, FileText, Sun, Menu, X, Eye } from 'lucide-react'
+import { Phone, Upload, CheckCircle, User, Smartphone, Camera, Image as ImageIcon, FileText, Sun, Menu, X, Eye } from 'lucide-react'
 
 interface Lunette {
   id: number;
@@ -237,7 +237,6 @@ function OrdonnancePage() {
     const selectedFile = e.target.files?.[0]
     if (selectedFile) {
       setFile(selectedFile)
-      // Prévisualisation si c'est une image
       if (selectedFile.type.startsWith('image/')) {
         const reader = new FileReader()
         reader.onloadend = () => setPreview(reader.result as string)
@@ -250,26 +249,22 @@ function OrdonnancePage() {
 
   const sendToWhatsApp = () => {
     if (!file || !prenom || !telephone) {
-      alert("Veuillez remplir tous les champs et choisir une ordonnance")
+      alert("Veuillez remplir tous les champs et choisir votre ordonnance")
       return
     }
-
     setIsSending(true)
 
-    // Conversion du fichier en base64
     const reader = new FileReader()
     reader.onloadend = () => {
-      const base64data = reader.result?.toString().split(',')[1] // on enlève le préfixe data:...
+      const base64data = reader.result?.toString().split(',')[1]
       const fileName = file.name
       const mimeType = file.type || 'application/octet-stream'
 
-      const message = `🟢 NOUVELLE ORDONNANCE REÇUE !\n\n` +
-        `👤 Nom : *${prenom}*\n` +
-        `📞 Téléphone : *${telephone}*\n\n` +
-        `📎 Fichier : ${fileName}\n` +
-        `Envoyé depuis le site Peter Optique`
+      const message = `NOUVELLE ORDONNANCE REÇUE !\n\n` +
+        `Nom : *${prenom}*\n` +
+        `Téléphone : *${telephone}*\n` +
+        `Fichier : ${fileName}`
 
-      // URL spéciale WhatsApp avec pièce jointe base64
       const whatsappURL = `https://wa.me/221767913986?text=${encodeURIComponent(message)}&attachment=${encodeURIComponent(
         `data:${mimeType};base64,${base64data}`
       )}`
@@ -278,118 +273,136 @@ function OrdonnancePage() {
       setSent(true)
       setIsSending(false)
 
-      // Reset après 5 secondes
       setTimeout(() => {
         setPrenom('')
         setTelephone('')
         setFile(null)
         setPreview(null)
         setSent(false)
-      }, 5000)
+      }, 6000)
     }
     reader.readAsDataURL(file)
   }
 
   return (
     <section className="py-20 px-6 max-w-4xl mx-auto">
-      <div className="text-center mb-12">
-        <Upload className="w-20 h-20 mx-auto text-teal-500 mb-6" />
+      <div className="text-center mb-14">
+        <Upload className="w-20 h-20 mx-auto text-teal-500 mb-6 animate-pulse" />
         <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-4">
-          Déposez votre ordonnance
+          Envoyez votre ordonnance en 30 secondes
         </h1>
-        <p className="text-xl text-gray-600">
-          Prenez une photo nette ou envoyez votre PDF → Réponse sous 10 minutes avec le prix exact !
-        </p>
+        <p className="text-xl text-gray-600">Photo ou PDF → Réponse sous 10 minutes avec le prix exact</p>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <div>
-            <label className="block text-lg font-semibold mb-3">Votre prénom</label>
+      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-6 text-white text-center">
+          <p className="text-lg font-bold">Vos informations (confidentielles)</p>
+        </div>
+
+        <div className="p-8 md:p-12 space-y-8">
+          {/* Prénom */}
+          <div className="relative">
+            <label className="flex items-center gap-3 text-lg font-bold text-gray-800 mb-3">
+              <User className="w-7 h-7 text-teal-600" />
+              Votre prénom
+            </label>
             <input
               type="text"
               value={prenom}
               onChange={(e) => setPrenom(e.target.value)}
-              placeholder="Ex: Fatou Diop"
-              className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-teal-500 focus:outline-none text-lg"
+              placeholder="Ex: Awa Ndiaye"
+              className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 rounded-2xl focus:border-teal-500 focus:outline-none text-lg transition"
             />
+            <User className="absolute left-5 top-14 w-6 h-6 text-gray-400" />
           </div>
-          <div>
-            <label className="block text-lg font-semibold mb-3">Votre téléphone</label>
+
+          {/* Téléphone */}
+          <div className="relative">
+            <label className="flex items-center gap-3 text-lg font-bold text-gray-800 mb-3">
+              <Smartphone className="w-7 h-7 text-teal-600" />
+              Votre téléphone WhatsApp
+            </label>
             <input
               type="tel"
               value={telephone}
               onChange={(e) => setTelephone(e.target.value)}
-              placeholder="Ex: 77 123 45 67"
-              className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-teal-500 focus:outline-none text-lg"
+              placeholder="77 123 45 67"
+              className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 rounded-2xl focus:border-teal-500 focus:outline-none text-lg transition"
             />
+            <Smartphone className="absolute left-5 top-14 w-6 h-6 text-gray-400" />
           </div>
-        </div>
 
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-4">
-            Photo ou PDF de votre ordonnance
-          </label>
-          
-          <div className="border-4 border-dashed border-gray-300 rounded-3xl p-12 text-center hover:border-teal-400 transition">
-            <input
-              type="file"
-              accept="image/*,application/pdf"
-              onChange={handleFileChange}
-              className="hidden"
-              id="ordonnance-file"
-            />
-            <label htmlFor="ordonnance-file" className="cursor-pointer">
-              {preview ? (
-                <div className="space-y-4">
-                  <img src={preview} alt="Prévisualisation" className="mx-auto max-h-80 rounded-2xl shadow-lg" />
-                  <p className="text-green-600 font-bold flex items-center justify-center gap-2">
-                    <CheckCircle className="w-6 h-6" /> Fichier prêt !
-                  </p>
-                </div>
-              ) : file ? (
-                <div className="flex flex-col items-center gap-4">
-                  <FileText className="w-16 h-16 text-blue-500" />
-                  <p className="text-lg font-semibold">{file.name}</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <ImageIcon className="w-16 h-16 mx-auto text-gray-400" />
-                  <p className="text-xl text-gray-600">Cliquez pour choisir une photo ou PDF</p>
-                  <p className="text-sm text-gray-500">Formats acceptés : JPG, PNG, PDF</p>
-                </div>
-              )}
+          {/* Fichier */}
+          <div>
+            <label className="flex items-center gap-3 text-lg font-bold text-gray-800 mb-5">
+              <Camera className="w-7 h-7 text-teal-600" />
+              Photo ou PDF de votre ordonnance
             </label>
+
+            <div className="border-4 border-dashed border-gray-300 rounded-3xl p-12 text-center hover:border-teal-400 transition-all duration-300">
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={handleFileChange}
+                className="hidden"
+                id="ordonnance-file"
+              />
+              <label htmlFor="ordonnance-file" className="cursor-pointer">
+                {preview ? (
+                  <div className="space-y-6">
+                    <img src={preview} alt="Prévisualisation" className="mx-auto max-h-96 rounded-2xl shadow-2xl border-4 border-teal-100" />
+                    <p className="text-green-600 font-bold text-xl flex items-center justify-center gap-3">
+                      <CheckCircle className="w-8 h-8" /> Prêt à envoyer !
+                    </p>
+                  </div>
+                ) : file ? (
+                  <div className="flex flex-col items-center gap-5">
+                    <FileText className="w-20 h-20 text-blue-600" />
+                    <p className="text-xl font-bold text-gray-700">{file.name}</p>
+                    <p className="text-green-600 font-semibold">Fichier sélectionné</p>
+                  </div>
+                ) : (
+                  <div className="space-y-5">
+                    <ImageIcon className="w-20 h-20 mx-auto text-gray-400" />
+                    <p className="text-2xl font-semibold text-gray-700">Cliquez ici pour choisir</p>
+                    <p className="text-gray-500">JPG, PNG ou PDF – Max 10 Mo</p>
+                  </div>
+                )}
+              </label>
+            </div>
           </div>
-        </div>
 
-        <button
-          onClick={sendToWhatsApp}
-          disabled={isSending || sent}
-          className={`w-full py-6 rounded-3xl font-black text-2xl transition transform hover:scale-105 flex items-center justify-center gap-4 ${
-            sent 
-              ? "bg-green-600 text-white" 
-              : isSending 
-              ? "bg-gray-400 text-white cursor-not-allowed" 
-              : "bg-gradient-to-r from-teal-500 to-cyan-600 text-white hover:shadow-2xl"
-          }`}
-        >
-          {sent ? (
-            <>Envoyé avec succès ! ✅</>
-          ) : isSending ? (
-            <>Envoi en cours...</>
-          ) : (
-            <>
-              Envoyer sur WhatsApp <Phone className="w-8 h-8" />
-            </>
+          {/* Bouton d’envoi */}
+          <button
+            onClick={sendToWhatsApp}
+            disabled={isSending || sent || !file || !prenom || !telephone}
+            className={`w-full py-7 rounded-3xl font-black text-2xl transition-all transform hover:scale-105 flex items-center justify-center gap-4 shadow-2xl ${
+              sent
+                ? "bg-green-600 text-white animate-pulse"
+                : isSending || !file || !prenom || !telephone
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-teal-500 to-cyan-600 text-white hover:from-teal-600 hover:to-cyan-700"
+            }`}
+          >
+            {sent ? (
+              <>Envoyé avec succès ! Merci {prenom.split(' ')[0]} !</>
+            ) : isSending ? (
+              <>Envoi en cours...</>
+            ) : (
+              <>
+                Envoyer sur WhatsApp <Phone className="w-9 h-9" />
+              </>
+            )}
+          </button>
+
+          {sent && (
+            <div className="text-center mt-8 p-6 bg-green-50 rounded-2xl border-2 border-green-200">
+              <p className="text-2xl font-bold text-green-700">
+                Reçu ! Tu vas avoir une réponse sous 10 minutes maximum
+              </p>
+            </div>
           )}
-        </button>
-
-        {sent && (
-          <p className="text-center mt-6 text-green-600 font-bold text-xl">
-            Merci {prenom} ! Tu vas recevoir une réponse sous 10 minutes 📲
-          </p>
-        )}
+        </div>
       </div>
     </section>
   )
