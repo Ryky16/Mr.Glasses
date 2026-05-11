@@ -54,7 +54,7 @@ export function HomePage() {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10">
-            Collection 2026  - Soleil • Photogrey • Vue<br />
+            Collection 2026  - Soleil • Photogrey • Enfant<br />
             Qualité Premium • Prix accessibles • Livraison partout au Sénégal
           </p>
 
