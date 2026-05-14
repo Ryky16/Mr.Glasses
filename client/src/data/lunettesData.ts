@@ -7,7 +7,7 @@ export const lunettesData: Lunette[] = [
     categorie: "soleil", 
     genre: "homme", 
     nouveau: true,
-    image: "aviator-gold.jpg"
+    image: "maybhsim.jpeg"
   },
 
   { id: 2, 
@@ -16,7 +16,7 @@ export const lunettesData: Lunette[] = [
     categorie: "soleil", 
     genre: "femme", 
     promo: true,
-    image: "" 
+    image: "maybhsim.jpeg" 
   },
 
   { id: 3, 
@@ -38,7 +38,7 @@ export const lunettesData: Lunette[] = [
     prix: "28 000 FCFA", 
     categorie: "enfant", 
     genre: "enfant",
-    image: ""
+    image: "maybhsim.jpeg"
      },
 
   { id: 6, nom: "Sport Pro Shield", 
