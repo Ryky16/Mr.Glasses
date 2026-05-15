@@ -102,18 +102,31 @@ export function HomePage() {
 
       {/* Section Meilleures Ventes */}
       {/* Section Meilleures Ventes - Version améliorée */}
-<section className="py-24 px-6 max-w-7xl mx-auto bg-white">
-  <div className="text-center mb-16">
-    <h2 className="text-5xl font-black mb-4">Nos Modèles les Plus Demandés</h2>
-    <p className="text-xl text-gray-600">Qualité premium • Style intemporel • Meilleures ventes</p>
-  </div>
+      {/* Section Meilleures Ventes - Version Premium */}
+      <section className="py-28 px-6 max-w-7xl mx-auto bg-white">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-black mb-4">Nos Modèles les Plus Demandés</h2>
+          <p className="text-xl text-gray-600">Découvrez notre sélection premium • Mise à jour régulièrement</p>
+        </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    {lunettesData.map((lunette) => (
-      <Card key={lunette.id} lunette={lunette} />
-    ))}
-  </div>
-</section>
+        {/* Grille 4 colonnes + 2 lignes (8 cartes visibles) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {lunettesData.slice(0, 8).map((lunette) => (   // Affiche les 8 premiers modèles
+            <Card key={lunette.id} lunette={lunette} />
+          ))}
+        </div>
+
+        {lunettesData.length > 8 && (
+          <div className="text-center mt-16">
+            <a
+              href="/soleil"
+              className="inline-block bg-black text-white font-bold text-xl px-10 py-5 rounded-2xl hover:bg-gray-800 transition"
+            >
+              Voir toute la collection →
+            </a>
+          </div>
+        )}
+      </section>
     </>
   );
 }

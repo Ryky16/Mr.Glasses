@@ -2,42 +2,42 @@ import type { Lunette } from '../types/Lunette';
 
 export function Card({ lunette }: { lunette: Lunette }) {
   return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 group">
+    <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 group">
       
-      {/* Image plus grande et plus visible */}
-      <div className="relative h-96 overflow-hidden">
+      {/* Image encore plus grande */}
+      <div className="relative h-[420px] overflow-hidden">
         <img 
           src={`/images/${lunette.image}`} 
           alt={lunette.nom}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
-            e.currentTarget.src = "https://via.placeholder.com/600x400?text=Photo+non+disponible";
+            e.currentTarget.src = "https://via.placeholder.com/300x400?text=Photo+non+disponible";
           }}
         />
         
         {lunette.nouveau && (
-          <span className="absolute top-5 left-5 bg-orange-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+          <span className="absolute top-6 left-6 bg-orange-500 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg z-10">
             NOUVEAU
           </span>
         )}
         {lunette.promo && (
-          <span className="absolute top-5 left-5 bg-red-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg">
+          <span className="absolute top-6 left-6 bg-red-600 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg z-10">
             PROMO
           </span>
         )}
         
-        <span className="absolute top-5 right-5 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow">
+        <span className="absolute top-6 right-6 bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold shadow z-10">
           {lunette.genre.toUpperCase()}
         </span>
       </div>
 
-      {/* Contenu de la carte */}
-      <div className="p-8">
-        <h3 className="text-2xl font-bold text-gray-800 mb-3 line-clamp-2 min-h-[64px]">
+      {/* Contenu */}
+      <div className="p-5">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4 line-clamp-2 min-h-[5px]">
           {lunette.nom}
         </h3>
         
-        <p className="text-3xl font-bold text-orange-500 mb-8">
+        <p className="text-2xl font-bold text-orange-500 mb-9">
           {lunette.prix}
         </p>
 
@@ -48,7 +48,7 @@ export function Card({ lunette }: { lunette: Lunette }) {
               '_blank'
             )
           }
-          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 rounded-2xl text-lg transition-all hover:scale-105 active:scale-95 shadow-lg"
+          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-2xl text-xl transition-all hover:scale-105 active:scale-95 shadow-lg"
         >
           Commander sur WhatsApp
         </button>
