@@ -77,11 +77,6 @@ export function HomePage() {
             </a>
           </div>
 
-          {/* Texte descendu avec espacement */}
-          <div className="text-white/70 text-sm tracking-[3px] flex flex-col items-center gap-3 mt-4">
-            DÉCOUVREZ NOS MODÈLES
-            <span className="text-4xl animate-bounce">↓</span>
-          </div>
         </div>
 
         {/* Indicateurs du slider */}
@@ -96,6 +91,11 @@ export function HomePage() {
                 }`}
               />
             ))}
+          </div>
+          {/* Texte descendu avec espacement */}
+          <div className="text-white/70 text-sm tracking-[3px] flex flex-col items-center gap-3">
+            DÉCOUVREZ NOS MODÈLES
+            <span className="text-4xl animate-bounce">↓</span>
           </div>
         </div>
       </section>
