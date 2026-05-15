@@ -20,7 +20,7 @@ export const lunettesData: Lunette[] = [
   },
 
   { id: 3, 
-    nom: "Photogrey Intelligent React", 
+    nom: "Photogrey Intelligent", 
     prix: "52 000 FCFA", 
     categorie: "photogrey", 
     genre: "mixte",
@@ -34,17 +34,37 @@ export const lunettesData: Lunette[] = [
   image: ""
  },
 
-  { id: 5, nom: "Mickey Adventure", 
+  { id: 5, 
+    nom: "Mickey Adventure", 
     prix: "28 000 FCFA", 
     categorie: "enfant", 
     genre: "enfant",
     image: "maybhsim.jpeg"
      },
 
-  { id: 6, nom: "Sport Pro Shield", 
+  { id: 6, 
+    nom: "Sport Pro Shield", 
     prix: "60 000 FCFA", 
     categorie: "soleil", 
     genre: "homme",
   image: ""
  },
+
+  { id: 7, 
+    nom: "Aviator Gold Premium", 
+    prix: "38 000 FCFA", 
+    categorie: "soleil", 
+    genre: "femme", 
+    nouveau: true,
+    image: "maybhsim.jpeg"
+  },
+
+   { id: 8, 
+    nom: "Aviator Gold Premium", 
+    prix: "38 000 FCFA", 
+    categorie: "soleil", 
+    genre: "Enfant", 
+    nouveau: true,
+    image: "maybhsim.jpeg"
+  },
 ];

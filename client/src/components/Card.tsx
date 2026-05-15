@@ -4,7 +4,7 @@ export function Card({ lunette }: { lunette: Lunette }) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
       <div className="relative">
-        <div className="bg-gradient-to-br from-gray-100 to-gray-200 h-96 flex items-center justify-center">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-200 h-[550px] flex items-center justify-center">
           <span className="text-gray-400 text-6xl">🕶️</span>
         </div>
         {lunette.nouveau && (
@@ -22,8 +22,8 @@ export function Card({ lunette }: { lunette: Lunette }) {
         </span>
       </div>
       <div className="p-8">
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">{lunette.nom}</h3>
-        <p className="text-orange-600 font-semibold text-lg mb-4">À partir de {lunette.prix}</p>
+        <h3 className="text-3xl font-extrabold text-gray-900 mb-2">{lunette.nom}</h3>
+        <p className="text-orange-600 font-bold text-xl mb-6">À partir de {lunette.prix}</p>
         <button
           onClick={() =>
             window.open(

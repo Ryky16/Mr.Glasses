@@ -16,7 +16,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorie, lunettesData }) 
   }[categorie] || "Nos Lunettes";
 
   return (
-    <section className="py-20 px-6 max-w-7xl mx-auto">
+    <section className="py-20 px-4 md:px-12 max-w-[1850px] mx-auto">
       <h1 className="text-5xl font-black text-center mb-16 bg-gradient-to-r from-orange-500 to-pink-600 bg-clip-text text-transparent">
         {title}
       </h1>
@@ -24,7 +24,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categorie, lunettesData }) 
       {filtered.length === 0 ? (
         <p className="text-center text-2xl text-gray-500">Aucun modèle disponible pour le moment.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {filtered.map((lunette) => (
             <Card key={lunette.id} lunette={lunette} />
           ))}
