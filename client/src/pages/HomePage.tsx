@@ -38,7 +38,7 @@ export function HomePage() {
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="mb-6 inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-3 rounded-full border border-white/20">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white text-sm font-medium tracking-widest">COLLECTION 2025 • DAKAR</span>
+            <span className="text-white text-sm font-medium tracking-widest">COLLECTION 2026 • DAKAR</span>
           </div>
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tighter mb-8">
