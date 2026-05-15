@@ -59,7 +59,7 @@ export function HomePage() {
           </div>
 
           {/* Boutons d'action */}
-          <div className="flex flex-col sm:flex-row gap-5 justify-center mb-20">
+          <div className="flex flex-col sm:flex-row gap-5 justify-center mb-32">
             <a
               href="https://wa.me/221767913986?text=Bonjour%20Peter%20Optique%2C%20je%20suis%20intéressé%20par%20la%20collection"
               target="_blank"
@@ -80,8 +80,8 @@ export function HomePage() {
         </div>
 
         {/* Indicateurs du slider */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20">
-          <div className="flex gap-4">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-10 z-20">
+          <div className="flex gap-5">
             {heroLunettes.map((_, index) => (
               <button
                 key={index}
