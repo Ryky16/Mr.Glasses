@@ -78,23 +78,25 @@ export function HomePage() {
           </div>
 
           {/* Texte descendu avec espacement */}
-          <div className="text-white/70 text-sm tracking-[3px] flex flex-col items-center gap-3">
+          <div className="text-white/70 text-sm tracking-[3px] flex flex-col items-center gap-3 mt-4">
             DÉCOUVREZ NOS MODÈLES
             <span className="text-4xl animate-bounce">↓</span>
           </div>
         </div>
 
         {/* Indicateurs du slider */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
-          {heroLunettes.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'
-              }`}
-            />
-          ))}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20">
+          <div className="flex gap-4">
+            {heroLunettes.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
