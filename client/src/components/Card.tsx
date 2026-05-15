@@ -5,7 +5,7 @@ export function Card({ lunette }: { lunette: Lunette }) {
     <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 group">
       
       {/* Image encore plus grande */}
-      <div className="relative h-[420px] overflow-hidden">
+      <div className="relative h-[320px] overflow-hidden">
         <img 
           src={`/images/${lunette.image}`} 
           alt={lunette.nom}
