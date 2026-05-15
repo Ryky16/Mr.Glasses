@@ -48,7 +48,7 @@ export function Card({ lunette }: { lunette: Lunette }) {
               '_blank'
             )
           }
-          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-2xl text-xl transition-all hover:scale-105 active:scale-95 shadow-lg"
+          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-2 rounded-2xl text-xl transition-all hover:scale-105 active:scale-95 shadow-lg"
         >
           Commander sur WhatsApp
         </button>
