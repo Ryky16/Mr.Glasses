@@ -101,18 +101,19 @@ export function HomePage() {
       </section>
 
       {/* Section Meilleures Ventes */}
-      <section className="py-24 px-4 md:px-12 max-w-[2000px] mx-auto bg-white">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-black mb-4">Nos Modèles les Plus Demandés</h2>
-          <p className="text-xl text-gray-600">Qualité premium • Style intemporel</p>
-        </div>
+      {/* Section Meilleures Ventes - Version améliorée */}
+<section className="py-24 px-6 max-w-7xl mx-auto bg-white">
+  <div className="text-center mb-16">
+    <h2 className="text-5xl font-black mb-4">Nos Modèles les Plus Demandés</h2>
+    <p className="text-xl text-gray-600">Qualité premium • Style intemporel • Meilleures ventes</p>
+  </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {lunettesData.slice(0, 12).map((lunette) => (
-            <Card key={lunette.id} lunette={lunette} />
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    {lunettesData.map((lunette) => (
+      <Card key={lunette.id} lunette={lunette} />
+    ))}
+  </div>
+</section>
     </>
   );
 }
