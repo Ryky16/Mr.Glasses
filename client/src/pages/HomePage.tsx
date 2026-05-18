@@ -11,7 +11,6 @@ export function HomePage() {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroLunettes.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [heroLunettes.length]);
 
@@ -19,10 +18,8 @@ export function HomePage() {
 
   return (
     <>
-      {/* HERO PREMIUM */}
+      {/* HERO - Compatible Dark Mode */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        
-        {/* Images de fond */}
         {heroLunettes.map((lunette, index) => (
           <div
             key={lunette.id}
@@ -33,12 +30,12 @@ export function HomePage() {
           />
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 dark:from-black/80 dark:via-black/70 dark:to-black/90" />
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="mb-6 inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-3 rounded-full border border-white/20">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white text-sm font-medium tracking-widest">COLLECTION 2026 • DAKAR</span>
+            <span className="text-white text-sm font-medium tracking-widest">COLLECTION 2025 • DAKAR</span>
           </div>
 
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tighter mb-8">
@@ -48,7 +45,6 @@ export function HomePage() {
             </span>
           </h1>
 
-          {/* Nom + Prix du modèle actuel */}
           <div className="mb-12 min-h-[90px]">
             <p className="text-3xl md:text-4xl font-semibold text-white drop-shadow-md">
               {currentLunette.nom}
@@ -58,74 +54,48 @@ export function HomePage() {
             </p>
           </div>
 
-          {/* Boutons d'action */}
-          <div className="flex flex-col sm:flex-row gap-5 justify-center mb-32">
-            <a
-              href="https://wa.me/221767913986?text=Bonjour%20Peter%20Optique%2C%20je%20suis%20intéressé%20par%20la%20collection"
-              target="_blank"
-              className="group bg-white hover:bg-yellow-400 text-black font-bold text-xl px-12 py-6 rounded-3xl flex items-center gap-4 transition-all duration-300 hover:scale-105 shadow-2xl"
-            >
+          <div className="flex flex-col sm:flex-row gap-5 justify-center mb-20">
+            <a href="https://wa.me/221767913986?text=Bonjour%20Peter%20Optique..." target="_blank"
+              className="group bg-white hover:bg-yellow-400 text-black font-bold text-xl px-12 py-6 rounded-3xl flex items-center gap-4 transition-all hover:scale-105 shadow-2xl">
               Commander sur WhatsApp
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition" />
             </a>
 
-            <a
-              href="/ordonnance"
-              className="border-2 border-white/80 hover:border-white text-white font-semibold text-xl px-10 py-6 rounded-3xl hover:bg-white/10 backdrop-blur transition-all"
-            >
+            <a href="/ordonnance"
+              className="border-2 border-white/80 hover:border-white text-white font-semibold text-xl px-10 py-6 rounded-3xl hover:bg-white/10 backdrop-blur transition-all">
               Déposer mon ordonnance
             </a>
           </div>
 
-        </div>
-
-        {/* Indicateurs du slider */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-10 z-20">
-          <div className="flex gap-5">
-            {heroLunettes.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'
-                }`}
-              />
-            ))}
-          </div>
-          {/* Texte descendu avec espacement */}
           <div className="text-white/70 text-sm tracking-[3px] flex flex-col items-center gap-3">
             DÉCOUVREZ NOS MODÈLES
             <span className="text-4xl animate-bounce">↓</span>
           </div>
         </div>
+
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+          {heroLunettes.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`h-1.5 rounded-full transition-all duration-500 ${index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'}`}
+            />
+          ))}
+        </div>
       </section>
 
-      {/* Section Meilleures Ventes */}
-      {/* Section Meilleures Ventes - Version améliorée */}
-      {/* Section Meilleures Ventes - Version Premium */}
-      <section className="py-28 px-6 max-w-7xl mx-auto bg-white">
+      {/* Section Modèles - Compatible Dark Mode */}
+      <section className="py-28 px-6 max-w-7xl mx-auto bg-white dark:bg-gray-950">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-black mb-4">Nos Modèles les Plus Demandés</h2>
-          <p className="text-xl text-gray-600">Découvrez notre sélection premium • Mise à jour régulièrement</p>
+          <h2 className="text-5xl font-black mb-4 text-gray-900 dark:text-white">Nos Modèles les Plus Demandés</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400">Découvrez notre sélection premium</p>
         </div>
 
-        {/* Grille 4 colonnes + 3 lignes (12 cartes visibles) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-          {lunettesData.slice(0, 12).map((lunette) => (   // Affiche les 8 premiers modèles
+          {lunettesData.slice(0, 12).map((lunette) => (
             <Card key={lunette.id} lunette={lunette} />
           ))}
         </div>
-
-        {lunettesData.length > 12 && (
-          <div className="text-center mt-16">
-            <a
-              href="/soleil"
-              className="inline-block bg-black text-white font-bold text-xl px-10 py-5 rounded-2xl hover:bg-gray-800 transition"
-            >
-              Voir toute la collection →
-            </a>
-          </div>
-        )}
       </section>
     </>
   );
