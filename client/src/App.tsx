@@ -30,10 +30,10 @@ export default function App() {
       </Routes>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-blue-700 to-teal-700 text-white py-16 text-center">
+      <footer className="bg-gray-900 dark:bg-black text-white py-16 text-center border-t border-gray-800">
         <p className="text-4xl font-black">PETER OPTIQUE</p>
         <p className="text-2xl mt-4">WhatsApp : +221 76 791 39 86</p>
-        <p className="mt-6">© 2025 – Tous droits réservés – Dakar, Sénégal</p>
+        <p className="mt-6 text-gray-400">© 2025 – Tous droits réservés – Dakar, Sénégal</p>
       </footer>
     </>
   );
