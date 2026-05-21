@@ -123,6 +123,22 @@ export function Header() {
               >
                 Déposer mon Ordonnance
               </Link>
+            <button
+                onClick={toggleDarkMode}
+                className="mt-4 flex items-center justify-center gap-3 py-5 px-6 bg-gray-100 dark:bg-gray-800 rounded-2xl text-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="w-6 h-6 text-yellow-400" />
+                    Mode Clair
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-6 h-6" />
+                    Mode Sombre
+                  </>
+                )}
+              </button>
             </nav>
           </div>
         </>
