@@ -104,4 +104,31 @@ export const lunettesData: Lunette[] = [
     image: "maybhsim.jpeg"
   },
 
+   { id: 13, 
+    nom: "Aviator Gold Premium", 
+    prix: "38 000 FCFA", 
+    categorie: "soleil", 
+    genre: "Enfant", 
+    nouveau: true,
+    image: "maybhsim.jpeg"
+  },
+
+   { id: 14, 
+    nom: "Aviator Gold Premium", 
+    prix: "38 000 FCFA", 
+    categorie: "soleil", 
+    genre: "Enfant", 
+    nouveau: true,
+    image: "maybhsim.jpeg"
+  },
+
+  { id: 15, 
+    nom: "Aviator Gold Premium", 
+    prix: "38 000 FCFA", 
+    categorie: "soleil", 
+    genre: "Enfant", 
+    nouveau: true,
+    image: "maybhsim.jpeg"
+  },
+
 ];
