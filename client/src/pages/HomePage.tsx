@@ -67,11 +67,23 @@ export function HomePage() {
             </a>
           </div>
 
-          <div className="text-white/70 text-sm tracking-widest flex flex-col items-center gap-3">
-            DÉCOUVREZ NOS MODÈLES
-            <span className="text-4xl animate-bounce">↓</span>
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+            {heroLunettes.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all duration-500 ${index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'}`}
+              />
+            ))}
           </div>
         </div>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-widest flex flex-col items-center gap-3 z-20">
+          DÉCOUVREZ NOS MODÈLES
+          <span className="text-4xl animate-bounce">↓</span>
+        </div>
+
+        
       </section>
 
       {/* SECTION MODÈLES */}
