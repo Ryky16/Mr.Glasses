@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router';
 import { Card } from '../components/Card';
 import { lunettesData } from '../data/lunettesData';
 import { ArrowRight } from 'lucide-react';
 
 export function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const heroLunettes = lunettesData.slice(0, 8);
+  const heroLunettes = useMemo(() => lunettesData.slice(0, 8), []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,10 +62,10 @@ export function HomePage() {
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition" />
             </a>
 
-            <a href="/ordonnance"
+            <Link to="/ordonnance"
                className="border-2 border-white/80 hover:border-white text-white font-semibold text-xl px-10 py-6 rounded-3xl hover:bg-white/10 transition-all">
               Déposer mon ordonnance
-            </a>
+            </Link>
           </div>
 
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
@@ -72,6 +73,7 @@ export function HomePage() {
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
+                aria-label={`Voir le modèle ${index + 1}`}
                 className={`h-2 rounded-full transition-all duration-500 ${index === currentSlide ? 'bg-white w-12' : 'bg-white/40 hover:bg-white/70 w-8'}`}
               />
             ))}
