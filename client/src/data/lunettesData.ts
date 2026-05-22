@@ -2,7 +2,7 @@ import type { Lunette } from '../types/Lunette';
 
 export const lunettesData: Lunette[] = [
   // ==================== LUNETTES DE SOLEIL (12 modèles) ====================
-  { id: 1, nom: "Aviator Gold Premium", prix: "38 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "sol.jpeg" },
+  { id: 1, nom: "Aviator Gold Premium", prix: "38 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "" },
   { id: 2, nom: "Cat Eye Fashion 2025", prix: "42 000 FCFA", categorie: "soleil", genre: "femme", promo: true, image: "maybhsim.jpeg" },
   { id: 3, nom: "Wayfarer Classic Black", prix: "35 000 FCFA", categorie: "soleil", genre: "homme", image: "maybhsim.jpeg" },
   { id: 4, nom: "Square Bold Edition", prix: "40 000 FCFA", categorie: "soleil", genre: "femme", image: "maybhsim.jpeg" },
