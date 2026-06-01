@@ -39,13 +39,13 @@ export const heroData = [
     id: 7,
     nom: "Mickey Adventure",
     prix: "28 000 FCFA",
-    image: "mickey.jpg"
+    image: "phofile.jpeg"
   },
   {
     id: 8,
     nom: "Mickey Adventure",
     prix: "28 000 FCFA",
-    image: "mickey.jpg"
+    image: ""
   },
   
 ];
