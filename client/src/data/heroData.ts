@@ -3,7 +3,7 @@ export const heroData = [
     id: 1,
     nom: "Aviator Gold Premium",
     prix: "38 000 FCFA",
-    image: "sol.jpeg"
+    image: "hero/sol.jpeg"
   },
   {
     id: 2,

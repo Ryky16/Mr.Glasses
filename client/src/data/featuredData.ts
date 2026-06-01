@@ -1,8 +1,8 @@
 import type { Lunette } from '../types/Lunette';
 
 export const featuredData: Lunette[] = [
-  { id: 101, nom: "Aviator Gold Limited", prix: "45 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "cartiornoir.jpeg" },
-  { id: 102, nom: "Photogrey Luxury", prix: "58 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured-2.jpg" },
+  { id: 101, nom: "Aviator Gold Limited", prix: "45 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "featured/cartiornoir.jpeg" },
+  { id: 102, nom: "Photogrey Luxury", prix: "58 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "moscmaro.jpeg" },
   { id: 103, nom: "Cat Eye Diamond", prix: "42 000 FCFA", categorie: "soleil", genre: "femme", image: "featured-3.jpg" },
   { id: 104, nom: "Sport Polarized", prix: "50 000 FCFA", categorie: "soleil", genre: "homme", image: "featured-4.jpg" },
   { id: 105, nom: "Photogrey Executive", prix: "55 000 FCFA", categorie: "photogrey", genre: "homme", image: "featured-5.jpg" },
