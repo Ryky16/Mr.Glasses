@@ -38,7 +38,8 @@ export function OrdonnancePage() {
       }
     }
   };
-  const sendToBackend = async () => {
+
+      const sendToBackend = async () => {
     if (!file || !prenom.trim() || !telephone.trim()) {
       setError("Veuillez remplir tous les champs et sélectionner un fichier.");
       return;
@@ -53,7 +54,8 @@ export function OrdonnancePage() {
     formData.append('telephone', telephone);
 
     try {
-      const response = await fetch('http://localhost:5000/api/ordonnance', {
+      // Utilise TON LIEN NGROK ici (très important)
+      const response = await fetch('https://ripcord-riches-fraternal.ngrok-free.dev/api/ordonnance', {
         method: 'POST',
         body: formData,
       });
@@ -61,11 +63,15 @@ export function OrdonnancePage() {
       const result = await response.json();
 
       if (result.success && result.fileUrl) {
-        const message = `🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢\n\n` +
-          `👤 Nom : *${prenom}*\n` +
-          `📞 Téléphone : *${telephone}*\n` +
-          `📎 Fichier : ${file.name}\n\n` +
-          `🔗 *VOIR LE FICHIER* :\n${result.fileUrl}`;
+        const message = 
+`🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢
+
+👤 Nom : *${prenom}*
+📞 Téléphone : *${telephone}*
+📎 Fichier : ${file.name}
+
+🔗 *CLIQUEZ ICI POUR OUVRIR LE FICHIER* :
+${result.fileUrl}`;
 
         window.open(`https://wa.me/221767913986?text=${encodeURIComponent(message)}`, '_blank');
 
@@ -75,12 +81,12 @@ export function OrdonnancePage() {
       }
     } catch (err) {
       console.error(err);
-      setError("Impossible de se connecter au serveur. Vérifiez que le backend tourne.");
+      setError("Impossible de se connecter au serveur. Vérifiez que Ngrok est lancé.");
     } finally {
       setIsSending(false);
     }
   };
-
+  
   return (
     <section className="py-20 px-6 max-w-4xl mx-auto bg-white dark:bg-gray-950 min-h-screen">
       <div className="text-center mb-14">
