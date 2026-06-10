@@ -4,6 +4,7 @@ import { WhatsAppButton } from './components/WhatsAppButton';
 import { HomePage } from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import { OrdonnancePage } from './pages/OrdonnancePage';
+import { LentillesPage } from './pages/LentillesPage';
 import { lunettesData } from './data/lunettesData';
 
 export default function App() {
@@ -14,19 +15,11 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/soleil"
-          element={<CategoryPage categorie="soleil" lunettesData={lunettesData} />}
-        />
-        <Route
-          path="/photogrey"
-          element={<CategoryPage categorie="photogrey" lunettesData={lunettesData} />}
-        />
-        <Route
-          path="/enfant"
-          element={<CategoryPage categorie="enfant" lunettesData={lunettesData} />}
-        />
+        <Route path="/soleil" element={<CategoryPage categorie="soleil" lunettesData={lunettesData} />} />
+        <Route path="/photogrey" element={<CategoryPage categorie="photogrey" lunettesData={lunettesData} />} />
+        <Route path="/enfant" element={<CategoryPage categorie="enfant" lunettesData={lunettesData} />} />
         <Route path="/ordonnance" element={<OrdonnancePage />} />
+        <Route path="/lentilles" element={<LentillesPage />} />   {/* ← Nouvelle route */}
       </Routes>
 
       {/* Footer */}
