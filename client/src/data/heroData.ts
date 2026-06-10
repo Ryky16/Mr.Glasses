@@ -1,51 +1,51 @@
 export const heroData = [
   {
     id: 1,
-    nom: "Aviator Gold Premium",
-    prix: "38 000 FCFA",
-    image: "hero/sol.jpeg"
+    nom: "Mascot blanc",
+    prix: "8 000 FCFA",
+    image: "hero/mascotblanc.jpeg"
   },
   {
     id: 2,
-    nom: "Photogrey Intelligent Pro",
+    nom: "",
     prix: "8 000 FCFA",
-    image: "photogrey-pro.jpg"
+    image: "hero/solmarron.jpeg"
   },
   {
     id: 3,
-    nom: "Cat Eye Fashion 2025",
-    prix: "42 000 FCFA",
-    image: "cat-eye.jpg"
+    nom: "Photogrey Noir argentin",
+    prix: "10 000 FCFA",
+    image: "hero/polanoir.jpeg"
   },
   {
     id: 4,
     nom: "Mickey Adventure",
-    prix: "28 000 FCFA",
-    image: "mickey.jpg"
+    prix: "8 000 FCFA",
+    image: "hero/polaziblanc.jpeg"
   },
   {
     id: 5,
     nom: "Mickey Adventure",
     prix: "28 000 FCFA",
-    image: "mickey.jpg"
+    image: "hero/solbleu.jpeg"
   },
   {
     id: 6,
     nom: "Mickey Adventure",
     prix: "28 000 FCFA",
-    image: "mickey.jpg"
+    image: "hero/solsomo.jpeg"
   },
   {
     id: 7,
-    nom: "Mickey Adventure",
-    prix: "28 000 FCFA",
-    image: "phofile.jpeg"
+    nom: "Soleil Vert",
+    prix: "8 000 FCFA",
+    image: "hero/solvert.jpeg"
   },
   {
     id: 8,
-    nom: "Mickey Adventure",
-    prix: "28 000 FCFA",
-    image: ""
+    nom: "Photogrey Bleu",
+    prix: "10 000 FCFA",
+    image: "hero/photobleu.jpeg"
   },
   
 ];
