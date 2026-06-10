@@ -25,14 +25,14 @@ export const heroData = [
   },
   {
     id: 5,
-    nom: "Mickey Adventure",
-    prix: "28 000 FCFA",
+    nom: "Soleil Bleu",
+    prix: "8 000 FCFA",
     image: "hero/solbleu.jpeg"
   },
   {
     id: 6,
-    nom: "Mickey Adventure",
-    prix: "28 000 FCFA",
+    nom: "Soleil Saumo",
+    prix: "8 000 FCFA",
     image: "hero/solsomo.jpeg"
   },
   {
