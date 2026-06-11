@@ -5,20 +5,21 @@ require('dotenv').config();
 
 const app = express();
 
+// ====================== MIDDLEWARE ======================
 app.use(cors());
 app.use(express.json());
 
 // Servir les fichiers statiques
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));           // Pour les ordonnances
+app.use('/images', express.static('../client/public/images')); // ← Pour les photos des lunettes
 
-// Configuration Multer avec nom de fichier propre (sans espaces)
+// ====================== MULTER CONFIG ======================
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    // Remplacer les espaces et caractères spéciaux
     const cleanName = file.originalname.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9.-]/g, '');
     cb(null, uniqueSuffix + '-' + cleanName);
   }
@@ -26,10 +27,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }
+  limits: { fileSize: 10 * 1024 * 1024 } // 10 Mo max
 });
 
-// Route principale
+// ====================== ROUTE ORDONNANCE ======================
 app.post('/api/ordonnance', upload.single('ordonnance'), (req, res) => {
   try {
     if (!req.file) {
@@ -61,7 +62,9 @@ app.post('/api/ordonnance', upload.single('ordonnance'), (req, res) => {
   }
 });
 
+// ====================== DÉMARRAGE SERVEUR ======================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Serveur backend démarré sur http://localhost:${PORT}`);
+  console.log(`📸 Images servies depuis : /images`);
 });
