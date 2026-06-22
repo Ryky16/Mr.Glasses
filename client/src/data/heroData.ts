@@ -43,7 +43,7 @@ export const heroData = [
   },
   {
     id: 8,
-    nom: "Lunette de soleil",
+    nom: "Lunette de soleil Ray-Ban",
     prix: "8 000 FCFA",
     image: "hero/raynor.JPG"
   },
