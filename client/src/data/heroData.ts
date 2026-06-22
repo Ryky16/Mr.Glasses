@@ -1,51 +1,51 @@
 export const heroData = [
   {
     id: 1,
-    nom: "Mascot blanc",
+    nom: "lunette Moscot",
     prix: "8 000 FCFA",
     image: "hero/mascotblanc.jpeg"
   },
   {
     id: 2,
-    nom: "",
-    prix: "8 000 FCFA",
-    image: "hero/solmarron.jpeg"
+    nom: "Lunette Photogrey Dior",
+    prix: "10 000 FCFA",
+    image: "hero/diorfemmaro.JPG"
   },
   {
     id: 3,
-    nom: "Photogrey Noir argentin",
+    nom: "Lunette Photogrey",
     prix: "10 000 FCFA",
     image: "hero/polanoir.jpeg"
   },
   {
     id: 4,
-    nom: "Mickey Adventure",
+    nom: "Lunette de soleil",
     prix: "8 000 FCFA",
-    image: "hero/polaziblanc.jpeg"
+    image: "hero/raybnogri.JPG"
   },
   {
     id: 5,
-    nom: "Soleil Bleu",
-    prix: "8 000 FCFA",
-    image: "hero/solbleu.jpeg"
+    nom: "Lunette Photogrey Chanel",
+    prix: "10 000 FCFA",
+    image: "hero/chaneredjau.JPG"
   },
   {
     id: 6,
-    nom: "Soleil Saumo",
+    nom: "Lunette de Soleil",
     prix: "8 000 FCFA",
     image: "hero/solsomo.jpeg"
   },
   {
     id: 7,
-    nom: "Soleil Vert",
-    prix: "8 000 FCFA",
-    image: "hero/solvert.jpeg"
+    nom: "Lunette Photogrey Maybach",
+    prix: "10 000 FCFA",
+    image: "hero/mayble.JPG"
   },
   {
     id: 8,
-    nom: "Photogrey Bleu",
-    prix: "10 000 FCFA",
-    image: "hero/photobleu.jpeg"
+    nom: "Lunette de soleil",
+    prix: "8 000 FCFA",
+    image: "hero/raynor.JPG"
   },
   
 ];

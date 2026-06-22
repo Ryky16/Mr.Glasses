@@ -1,16 +1,16 @@
 import type { Lunette } from '../types/Lunette';
 
 export const featuredData: Lunette[] = [
-  { id: 101, nom: "Aviator Gold Limited", prix: "45 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "featured/cartiornoir.jpeg" },
-  { id: 102, nom: "Photogrey Luxury", prix: "58 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "moscmaro.jpeg" },
-  { id: 103, nom: "Cat Eye Diamond", prix: "42 000 FCFA", categorie: "soleil", genre: "femme", image: "featured-3.jpg" },
-  { id: 104, nom: "Sport Polarized", prix: "50 000 FCFA", categorie: "soleil", genre: "homme", image: "featured-4.jpg" },
-  { id: 105, nom: "Photogrey Executive", prix: "55 000 FCFA", categorie: "photogrey", genre: "homme", image: "featured-5.jpg" },
-  { id: 106, nom: "Unicorn Rainbow", prix: "32 000 FCFA", categorie: "enfant", genre: "enfant", image: "featured-6.jpg" },
-  { id: 107, nom: "Round Classic", prix: "39 000 FCFA", categorie: "soleil", genre: "mixte", image: "featured-7.jpg" },
-  { id: 108, nom: "Photogrey Vision Pro", prix: "57 000 FCFA", categorie: "photogrey", genre: "mixte", image: "featured-8.jpg" },
-  { id: 109, nom: "Super Hero Mask", prix: "30 000 FCFA", categorie: "enfant", genre: "enfant", image: "featured-9.jpg" },
-  { id: 110, nom: "Mirror Gold Edition", prix: "48 000 FCFA", categorie: "soleil", genre: "homme", image: "featured-10.jpg" },
-  { id: 111, nom: "Elegant Butterfly", prix: "43 000 FCFA", categorie: "soleil", genre: "femme", image: "featured-11.jpg" },
-  { id: 112, nom: "Daily Comfort Photogrey", prix: "49 000 FCFA", categorie: "photogrey", genre: "mixte", image: "featured-12.jpg" },
+  { id: 101, nom: "Lunette Moscot", prix: "10 000 FCFA", categorie: "photogrey", genre: "homme", nouveau: true, image: "featured/mosgold.JPG" },
+  { id: 102, nom: "Photogrey femme", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/femphotogreyros.jpeg" },
+  { id: 103, nom: "Lunette Police", prix: "10 000 FCFA", categorie: "photogrey", genre: "homme", nouveau: true, image: "featured/pomaro.JPG" },
+  { id: 104, nom: "Lunette Emporio", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", promo: true, image: "featured/solempnoir.JPG" },
+  { id: 105, nom: "Lunette GUCCI", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/guccired.JPG" },
+  { id: 106, nom: "Lunette de soleil Moscot", prix: "8 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "featured/Mascomaronenf.JPG" },
+  { id: 107, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", nouveau: true, image: "featured/jaun.JPG" },
+  { id: 108, nom: "Lunette de soleil Moscot", prix: "8 000 FCFA", categorie: "soleil", genre: "mixte", nouveau: true, image: "featured/mostgris.JPG" },
+  { id: 109, nom: "Lunette de soleil", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "featured/cartiornoir.jpeg" },
+  { id: 110, nom: "Lunette Chanel", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/chanelviole.JPG" },
+  { id: 111, nom: "Lunette de soleil Fendi", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", image: "featured/fendinoirgold.JPG" },
+  { id: 112, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "photogrey", genre: "mixte", image: "featured/bossnoir.JPG" },
 ];
