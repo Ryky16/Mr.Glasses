@@ -43,9 +43,9 @@ export const heroData = [
   },
   {
     id: 8,
-    nom: "Lunette de soleil Ray-Ban",
+    nom: "Lunette de soleil",
     prix: "8 000 FCFA",
-    image: "hero/raynor.JPG"
+    image: "hero/solmarron.jpeg"
   },
   
 ];
