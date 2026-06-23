@@ -11,6 +11,6 @@ export const featuredData: Lunette[] = [
   { id: 108, nom: "Lunette de soleil Moscot", prix: "8 000 FCFA", categorie: "soleil", genre: "mixte", nouveau: true, image: "featured/mostgris.JPG" },
   { id: 109, nom: "Lunette de soleil", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "featured/cartiornoir.jpeg" },
   { id: 110, nom: "Lunette Chanel", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/chanelviole.JPG" },
-  { id: 111, nom: "Lunette de soleil Fendi", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", image: "featured/fendinoirgold.JPG" },
-  { id: 112, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "photogrey", genre: "mixte", image: "featured/bossnoir.JPG" },
+  { id: 111, nom: "Lunette de soleil Fendi", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", nouveau: true, image: "featured/fendinoirgold.JPG" },
+  { id: 112, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "photogrey", genre: "mixte", nouveau: true, image: "featured/bossnoir.JPG" },
 ];
