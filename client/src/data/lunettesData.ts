@@ -2,18 +2,18 @@ import type { Lunette } from '../types/Lunette';
 
 export const lunettesData: Lunette[] = [
   // ==================== LUNETTES DE SOLEIL (12 modèles) ====================
-  { id: 1, nom: "Lunette de soleil", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "soleil/solnoir.jpeg" },
-  { id: 2, nom: "Cat Eye Fashion 2025", prix: "42 000 FCFA", categorie: "soleil", genre: "femme", promo: true, image: "soleil/" },
-  { id: 3, nom: "Wayfarer Classic Black", prix: "35 000 FCFA", categorie: "soleil", genre: "homme", image: "soleil/" },
-  { id: 4, nom: "Square Bold Edition", prix: "40 000 FCFA", categorie: "soleil", genre: "femme", image: "soleil/" },
-  { id: 5, nom: "Round Retro Vintage", prix: "36 000 FCFA", categorie: "soleil", genre: "mixte", image: "soleil/" },
-  { id: 6, nom: "Sport Shield Pro", prix: "45 000 FCFA", categorie: "soleil", genre: "homme", image: "soleil/maybhsim.jpeg" },
-  { id: 7, nom: "Clubmaster Wood", prix: "39 000 FCFA", categorie: "soleil", genre: "homme", image: "soleil/maybhsim.jpeg" },
-  { id: 8, nom: "Butterfly Glam", prix: "41 000 FCFA", categorie: "soleil", genre: "femme", image: "soleil/maybhsim.jpeg" },
-  { id: 9, nom: "Pilot Mirror Gold", prix: "44 000 FCFA", categorie: "soleil", genre: "homme", image: "soleil/maybhsim.jpeg" },
-  { id: 10, nom: "Oversize Trend", prix: "37 000 FCFA", categorie: "soleil", genre: "femme", image: "soleil/maybhsim.jpeg" },
-  { id: 11, nom: "Classic Havana", prix: "43 000 FCFA", categorie: "soleil", genre: "mixte", image: "maybhsim.jpeg" },
-  { id: 12, nom: "Sport Active", prix: "46 000 FCFA", categorie: "soleil", genre: "homme", image: "maybhsim.jpeg" },
+  { id: 1, nom: "Lunette Ray-Ban", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "soleil/raynor.JPG" },
+  { id: 2, nom: "Lunette Dior", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", promo: true, image: "soleil/fdior.JPG" },
+  { id: 3, nom: "Lunette Moscot", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", promo: true, image: "soleil/redmosc.JPG" },
+  { id: 4, nom: "Lunette Versace", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", nouveau: true, image: "soleil/versafil.JPG" },
+  { id: 5, nom: "Lunette de Soleil", prix: "8 000 FCFA", categorie: "soleil", genre: "mixte", nouveau: true, image: "soleil/solnoir.jpeg" },
+  { id: 6, nom: "Lunette Prada", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "soleil/marprada.JPG" },
+  { id: 7, nom: "Lunette Fendi", prix: "8 000 FCFA", categorie: "soleil", genre: "femme", nouveau: true, image: "soleil/fendiso.JPG" },
+  { id: 8, nom: "Lunette Gucci", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", promo: true, image: "soleil/bleuguci.JPG" },
+  { id: 9, nom: "Lunette de Soleil", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true,  image: "soleil/blanmar.JPG" },
+  { id: 10, nom: "Lunette Moscot", prix: "8 000 FCFA", categorie: "soleil", genre: "mixte", promo: true, image: "soleil/mosbanc.JPG" },
+  { id: 11, nom: "Lunette Prada", prix: "8 000 FCFA", categorie: "soleil", genre: "mixte", promo: true, image: "soleil/Pramar.JPG" },
+  { id: 12, nom: "Lunette Louis Vuitton", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", nouveau: true, image: "soleil/louivert.JPG" },
 
   // ==================== LUNETTES PHOTOGREY (12 modèles) ====================
   { id: 13, nom: "Lunette Yilina ", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", nouveau: true, image: "photogrey/yilinarose.JPG" },
