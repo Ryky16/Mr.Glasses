@@ -41,5 +41,5 @@ export const lunettesData: Lunette[] = [
   { id: 33, nom: "Lunette de Soleil Moscot", prix: "8 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "enfant/nomost.JPG" },
   { id: 34, nom: "Lunette Photogrey Chanel", prix: "10 000 FCFA", categorie: "enfant", genre: "enfant", promo: true, image: "enfant/chanviol.JPG" },
   { id: 35, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "enfant/Blanpho.JPG" },
-  { id: 36, nom: "Lunette de Soleil", prix: "8 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "enfant/noirmas.JPG" },
+  { id: 36, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "enfant/noirmas.JPG" },
 ];
