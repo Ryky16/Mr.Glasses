@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { Header } from './components/Header';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { HomePage } from './pages/HomePage';
@@ -23,10 +23,61 @@ export default function App() {
       </Routes>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-black text-white py-16 text-center border-t border-gray-800">
-        <p className="text-4xl font-black">PETER OPTIQUE</p>
-        <p className="text-2xl mt-4">WhatsApp : +221 76 791 39 86</p>
-        <p className="mt-6 text-gray-400">© 2026 – Tous droits réservés – Dakar, Sénégal</p>
+            {/* ==================== FOOTER MODERNE ==================== */}
+      <footer className="bg-black text-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            
+            {/* Colonne 1 : Logo + Description */}
+            <div className="md:col-span-5">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                  <span className="text-3xl">👓</span>
+                </div>
+                <h2 className="text-4xl font-black tracking-tighter">PETER OPTIQUE</h2>
+              </div>
+              <p className="text-gray-400 max-w-md text-lg">
+                Lunettes de qualité premium à prix accessibles. 
+                Soleil, Photogrey et de vue avec livraison partout au Sénégal.
+              </p>
+            </div>
+
+            {/* Colonne 2 : Navigation */}
+            <div className="md:col-span-3">
+              <h3 className="text-lg font-semibold mb-6 text-orange-400">Navigation</h3>
+              <div className="flex flex-col gap-3 text-gray-400">
+                <Link to="/" className="hover:text-white transition">Accueil</Link>
+                <Link to="/soleil" className="hover:text-white transition">Lunettes de Soleil</Link>
+                <Link to="/photogrey" className="hover:text-white transition">Lunettes Photogrey</Link>
+                <Link to="/enfant" className="hover:text-white transition">Lunettes Enfant</Link>
+                <Link to="/ordonnance" className="hover:text-white transition">Déposer Ordonnance</Link>
+                <Link to="/lentilles" className="hover:text-white transition">Changer de Lentilles</Link>
+              </div>
+            </div>
+
+            {/* Colonne 3 : Contact Rapide */}
+            <div className="md:col-span-4">
+              <h3 className="text-lg font-semibold mb-6 text-orange-400">Besoin d'aide ?</h3>
+              <p className="text-gray-400 mb-6">
+                Envoyez-nous un message, nous vous répondons en moins de 10 minutes.
+              </p>
+              <a
+                href="https://wa.me/221767913986"
+                target="_blank"
+                className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-2xl transition-all"
+              >
+                <span>💬</span>
+                Discuter sur WhatsApp
+              </a>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>© 2026 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
+            <p className="mt-4 md:mt-0">Conçu avec ❤️ pour offrir le meilleur style</p>
+          </div>
+        </div>
       </footer>
     </>
   );
