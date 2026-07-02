@@ -1,4 +1,5 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Header } from './components/Header';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { HomePage } from './pages/HomePage';
@@ -7,11 +8,26 @@ import { OrdonnancePage } from './pages/OrdonnancePage';
 import { LentillesPage } from './pages/LentillesPage';
 import { lunettesData } from './data/lunettesData';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'   // Animation fluide
+    });
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <>
       <Header />
       <WhatsAppButton />
+      <ScrollToTop />   {/* ← Ce composant fait remonter automatiquement */}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -19,16 +35,14 @@ export default function App() {
         <Route path="/photogrey" element={<CategoryPage categorie="photogrey" lunettesData={lunettesData} />} />
         <Route path="/enfant" element={<CategoryPage categorie="enfant" lunettesData={lunettesData} />} />
         <Route path="/ordonnance" element={<OrdonnancePage />} />
-        <Route path="/lentilles" element={<LentillesPage />} />   {/* ← Nouvelle route */}
+        <Route path="/lentilles" element={<LentillesPage />} />
       </Routes>
 
       {/* Footer */}
-            {/* ==================== FOOTER MODERNE ==================== */}
       <footer className="bg-black text-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
             
-            {/* Colonne 1 : Logo + Description */}
             <div className="md:col-span-5">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center">
@@ -42,7 +56,6 @@ export default function App() {
               </p>
             </div>
 
-            {/* Colonne 2 : Navigation */}
             <div className="md:col-span-3">
               <h3 className="text-lg font-semibold mb-6 text-orange-400">Navigation</h3>
               <div className="flex flex-col gap-3 text-gray-400">
@@ -55,7 +68,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Colonne 3 : Contact Rapide */}
             <div className="md:col-span-4">
               <h3 className="text-lg font-semibold mb-6 text-orange-400">Besoin d'aide ?</h3>
               <p className="text-gray-400 mb-6">
@@ -72,9 +84,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* Bottom Bar */}
           <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>© 2026 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
+            <p>© 2025 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
             <p className="mt-4 md:mt-0">Conçu avec ❤️ pour offrir le meilleur style</p>
           </div>
         </div>
