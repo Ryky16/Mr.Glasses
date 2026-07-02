@@ -25,9 +25,9 @@ export const heroData = [
   },
   {
     id: 5,
-    nom: "Lunette Photogrey Chanel",
+    nom: "Lunette Photogrey Femme",
     prix: "10 000 FCFA",
-    image: "hero/chaneredjau.JPG"
+    image: "hero/fred.JPG"
   },
   {
     id: 6,
