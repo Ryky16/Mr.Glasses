@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import { OrdonnancePage } from './pages/OrdonnancePage';
 import { LentillesPage } from './pages/LentillesPage';
+import { AdminPage } from './pages/AdminPage';
 import { lunettesData } from './data/lunettesData';
 
 function ScrollToTop() {
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/enfant" element={<CategoryPage categorie="enfant" lunettesData={lunettesData} />} />
         <Route path="/ordonnance" element={<OrdonnancePage />} />
         <Route path="/lentilles" element={<LentillesPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
 
       {/* Footer */}
@@ -82,8 +84,18 @@ export default function App() {
                 Discuter sur WhatsApp
               </a>
             </div>
+            <div className="md:col-span-4">
+              <h3 className="text-lg font-semibold mb-6 text-orange-400">Administration</h3>
+              <Link 
+                to="/admin" 
+                className="text-orange-400 hover:text-orange-500 transition font-medium"
+              >
+                Accéder à l'Admin →
+              </Link>
+            </div>
           </div>
 
+          
           <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
             <p>© 2026 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
             <p className="mt-4 md:mt-0">Conçu avec ❤️ pour offrir le meilleur style</p>
