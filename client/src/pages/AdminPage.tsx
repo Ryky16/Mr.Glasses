@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, LogOut } from 'lucide-react';
 import type { Lunette } from '../types/Lunette';
 import { lunettesData } from '../data/lunettesData';
 
@@ -7,7 +7,8 @@ export function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState<'soleil' | 'photogrey' | 'enfant'>('soleil');
+  type TabKey = 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant';
+  const [activeTab, setActiveTab] = useState<TabKey>('soleil');
   const [models, setModels] = useState<Lunette[]>(lunettesData);
 
   const ADMIN_PASSWORD = "peter2025"; // Change ce mot de passe plus tard
@@ -25,23 +26,19 @@ export function AdminPage() {
   const deleteModel = (id: number) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce modèle ?")) {
       setModels(models.filter(m => m.id !== id));
-      alert("Modèle supprimé (dans la session actuelle)");
     }
   };
 
-  // Filtrer par catégorie
-  const tabs = [
-    { key: 'soleil', label: 'Lunettes de Soleil' },
-    { key: 'photogrey', label: 'Lunettes Photogrey' },
-    { key: 'enfant', label: 'Lunettes Enfant' },
-  ] as const;
-  const filteredModels = models.filter(m => m.categorie === activeTab);
+  const filteredModels = models.filter(m => {
+    if (activeTab === 'hero' || activeTab === 'featured') return true; // Temporaire
+    return m.categorie === activeTab;
+  });
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-6">
         <div className="bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl w-full max-w-md">
-          <h2 className="text-3xl font-bold text-center mb-8">Accès Administrateur</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">Administration Peter Optique</h2>
           <form onSubmit={handleLogin}>
             <input
               type="password"
@@ -61,33 +58,58 @@ export function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-black">Administration Peter Optique</h1>
-          <button className="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800">
-            <Plus size={20} /> Ajouter un Nouveau Modèle
-          </button>
-        </div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* ==================== ADMIN HEADER ==================== */}
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center">
+              👓
+            </div>
+            <div>
+              <h1 className="text-2xl font-black tracking-tight">PETER OPTIQUE</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">Administration</p>
+            </div>
+          </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-gray-700 mb-10 overflow-x-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`px-10 py-5 font-medium whitespace-nowrap transition-all border-b-4 ${
-                activeTab === tab.key 
-                  ? 'border-orange-500 text-orange-500' 
-                  : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-              }`}
-            >
-              {tab.label} ({models.filter(m => m.categorie === tab.key).length})
+          <div className="flex items-center gap-6">
+            <button className="bg-black text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition">
+              <Plus size={20} /> Ajouter un Nouveau Modèle
             </button>
-          ))}
+            <button className="text-gray-500 hover:text-red-500 transition">
+              <LogOut size={24} />
+            </button>
+          </div>
         </div>
 
-        {/* Grille des modèles */}
+        {/* Tabs de navigation */}
+        <div className="border-t border-gray-200 dark:border-gray-800">
+          <div className="max-w-7xl mx-auto px-6 flex overflow-x-auto">
+            {([
+              { key: 'soleil', label: 'Lunettes de Soleil' },
+              { key: 'photogrey', label: 'Lunettes Photogrey' },
+              { key: 'enfant', label: 'Lunettes Enfant' },
+              { key: 'hero', label: 'Hero' },
+              { key: 'featured', label: 'Nos Modèles Demandés' },
+            ] as { key: TabKey; label: string }[]).map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-8 py-5 font-medium whitespace-nowrap transition-all border-b-4 ${
+                  activeTab === tab.key 
+                    ? 'border-orange-500 text-orange-500' 
+                    : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {/* Contenu principal */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredModels.map((model) => (
             <div key={model.id} className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all">
