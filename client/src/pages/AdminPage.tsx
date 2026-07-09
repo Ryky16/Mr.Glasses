@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, LogOut, Save, X } from 'lucide-react';
+import type { Lunette } from '../types/Lunette';
 import { lunettesData } from '../data/lunettesData';
 import { heroData } from '../data/heroData';
 import { featuredData } from '../data/featuredData';
@@ -9,6 +10,10 @@ export function AdminPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant'>('soleil');
+  const [models, setModels] = useState<Lunette[]>(lunettesData);
+  const [showForm, setShowForm] = useState(false);
+  const [editingModel, setEditingModel] = useState<Lunette | null>(null);
+  const [formData, setFormData] = useState<Partial<Lunette>>({});
 
   const ADMIN_PASSWORD = "peter2025";
 
@@ -22,52 +27,87 @@ export function AdminPage() {
     }
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setPassword('');
+  };
+
+  const openAddForm = () => {
+    setEditingModel(null);
+    setFormData({});
+    setShowForm(true);
+  };
+
+  const openEditForm = (model: Lunette) => {
+    setEditingModel(model);
+    setFormData({ ...model });
+    setShowForm(true);
+  };
+
+  const saveModel = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.nom || !formData.prix || !formData.categorie) {
+      alert("Veuillez remplir au moins le nom, le prix et la catégorie");
+      return;
+    }
+
+    if (editingModel) {
+      // Modification
+      setModels(models.map(m => m.id === editingModel.id ? { ...m, ...formData } as Lunette : m));
+    } else {
+      // Ajout
+      const newModel: Lunette = {
+        id: Date.now(),
+        nom: formData.nom!,
+        prix: formData.prix!,
+        categorie: formData.categorie!,
+        genre: formData.genre || 'mixte',
+        image: formData.image || 'placeholder.jpg',
+      };
+      setModels([...models, newModel]);
+    }
+
+    setShowForm(false);
+    setEditingModel(null);
+    alert("Modèle sauvegardé avec succès (dans la session actuelle)");
+  };
+
   const deleteModel = (id: number) => {
-    if (window.confirm(`Voulez-vous vraiment supprimer le modèle #${id} ?`)) {
-      alert(`Modèle #${id} supprimé (dans la session actuelle). Pour un effet permanent, modifiez le fichier de données.`);
+    if (window.confirm("Voulez-vous vraiment supprimer ce modèle ?")) {
+      setModels(models.filter(m => m.id !== id));
     }
   };
 
-  // Sélection des données selon l'onglet
   const getCurrentModels = () => {
     switch (activeTab) {
-      case 'hero':
-        return heroData.map((item, index) => ({
-          ...item,
-          id: 1000 + index,
-          categorie: 'hero' as const,
-          genre: 'mixte' as const,
-        }));
-      case 'featured':
-        return featuredData;
-      case 'soleil':
-        return lunettesData.filter(m => m.categorie === 'soleil');
-      case 'photogrey':
-        return lunettesData.filter(m => m.categorie === 'photogrey');
-      case 'enfant':
-        return lunettesData.filter(m => m.categorie === 'enfant');
-      default:
-        return [];
+      case 'hero': return heroData.map((item, index) => ({ ...item, id: 1000 + index, categorie: 'hero' as const, genre: 'mixte' as const }));
+      case 'featured': return featuredData;
+      case 'soleil': return models.filter(m => m.categorie === 'soleil');
+      case 'photogrey': return models.filter(m => m.categorie === 'photogrey');
+      case 'enfant': return models.filter(m => m.categorie === 'enfant');
+      default: return [];
     }
   };
 
   const currentModels = getCurrentModels();
+
+  // ... (le formulaire de connexion reste le même)
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-6">
         <div className="bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl w-full max-w-md">
           <h2 className="text-3xl font-bold text-center mb-8">Accès Administrateur</h2>
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin}>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl focus:border-orange-500 dark:bg-gray-800 dark:text-white"
+              className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl mb-4 focus:border-orange-500"
               placeholder="Mot de passe Admin"
             />
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-bold hover:bg-gray-800 transition">
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+            <button type="submit" className="w-full bg-black text-white py-4 rounded-2xl font-bold hover:bg-gray-800">
               Se Connecter
             </button>
           </form>
@@ -80,9 +120,13 @@ export function AdminPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-black text-gray-900 dark:text-white">Administration Peter Optique</h1>
-          <button className="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition">
-            <Plus size={20} /> Ajouter un Modèle
+          <h1 className="text-4xl font-black">Administration Peter Optique</h1>
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold transition"
+          >
+            <LogOut size={20} />
+            Déconnexion
           </button>
         </div>
 
@@ -97,7 +141,7 @@ export function AdminPage() {
           ].map((tab) => (
             <button
               key={tab.key}
-                onClick={() => setActiveTab(tab.key as 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant')}
+              onClick={() => setActiveTab(tab.key as 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant')}
               className={`px-8 py-5 font-medium whitespace-nowrap transition-all border-b-4 ${
                 activeTab === tab.key 
                   ? 'border-orange-500 text-orange-500' 
@@ -109,7 +153,17 @@ export function AdminPage() {
           ))}
         </div>
 
-        {/* Grille des modèles */}
+        {/* Bouton Ajouter */}
+        <div className="mb-8 flex justify-end">
+          <button 
+            onClick={openAddForm}
+            className="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-gray-800 transition"
+          >
+            <Plus size={20} /> Ajouter un Nouveau Modèle
+          </button>
+        </div>
+
+        {/* Grille */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {currentModels.map((model) => (
             <div key={model.id} className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all">
@@ -125,7 +179,10 @@ export function AdminPage() {
                 <h3 className="font-bold text-lg mb-2 line-clamp-2">{model.nom}</h3>
                 <p className="text-orange-500 font-bold mb-6">{model.prix}</p>
                 <div className="flex gap-3">
-                  <button className="flex-1 bg-blue-600 text-white py-3 rounded-2xl flex items-center justify-center gap-2 hover:bg-blue-700">
+                  <button 
+                    onClick={() => openEditForm(model)}
+                    className="flex-1 bg-blue-600 text-white py-3 rounded-2xl flex items-center justify-center gap-2 hover:bg-blue-700"
+                  >
                     <Edit2 size={18} /> Modifier
                   </button>
                   <button 
@@ -140,6 +197,63 @@ export function AdminPage() {
           ))}
         </div>
       </div>
+
+      {/* Formulaire Modal */}
+      {showForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 w-full max-w-lg">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">{editingModel ? 'Modifier le Modèle' : 'Ajouter un Nouveau Modèle'}</h2>
+              <button onClick={() => setShowForm(false)}><X size={28} /></button>
+            </div>
+
+            <form onSubmit={saveModel} className="space-y-6">
+              <input
+                type="text"
+                placeholder="Nom du modèle"
+                value={formData.nom || ''}
+                onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Prix (ex: 38 000 FCFA)"
+                value={formData.prix || ''}
+                onChange={(e) => setFormData({ ...formData, prix: e.target.value })}
+                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                required
+              />
+              <select
+                value={formData.categorie || ''}
+                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as 'soleil' | 'photogrey' | 'enfant' })}
+                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                required
+              >
+                <option value="">Sélectionner la catégorie</option>
+                <option value="soleil">Lunettes de Soleil</option>
+                <option value="photogrey">Lunettes Photogrey</option>
+                <option value="enfant">Lunettes Enfant</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Nom de l'image (ex: aviator.jpg)"
+                value={formData.image || ''}
+                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+              />
+              <div className="flex gap-4">
+                <button type="submit" className="flex-1 bg-green-600 text-white py-4 rounded-2xl font-bold hover:bg-green-700">
+                  <Save className="inline mr-2" /> Sauvegarder
+                </button>
+                <button type="button" onClick={() => setShowForm(false)} className="flex-1 bg-gray-300 dark:bg-gray-700 py-4 rounded-2xl font-bold">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
