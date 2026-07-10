@@ -79,7 +79,7 @@ export default function App() {
             </div>
 
             <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-              <p>© 2025 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
+              <p>© 2026 Peter Optique - Tous droits réservés - Dakar, Sénégal</p>
               <p className="mt-4 md:mt-0">Conçu avec ❤️ pour offrir le meilleur style</p>
             </div>
           </div>

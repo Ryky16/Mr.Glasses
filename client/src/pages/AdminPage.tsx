@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, LogOut, Save, X } from 'lucide-react';
 import type { Lunette } from '../types/Lunette';
-import { lunettesData } from '../data/lunettesData';
+import { useData } from '../context/DataContext';
 import { heroData } from '../data/heroData';
 import { featuredData } from '../data/featuredData';
 
 export function AdminPage() {
+  const { models, addModel, updateModel, deleteModel: contextDeleteModel } = useData();
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant'>('soleil');
-  const [models, setModels] = useState<Lunette[]>(lunettesData);
   const [showForm, setShowForm] = useState(false);
   const [editingModel, setEditingModel] = useState<Lunette | null>(null);
   const [formData, setFormData] = useState<Partial<Lunette>>({});
@@ -46,35 +47,36 @@ export function AdminPage() {
 
   const saveModel = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nom || !formData.prix || !formData.categorie) {
-      alert("Veuillez remplir au moins le nom, le prix et la catégorie");
+    if (!formData.nom || !formData.prix || !formData.categorie || !formData.image) {
+      alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
 
+    const newModel: Lunette = {
+      id: editingModel ? editingModel.id : Date.now(),
+      nom: formData.nom!,
+      prix: formData.prix!,
+      categorie: formData.categorie!,
+      genre: formData.genre || 'mixte',
+      image: formData.image!,
+      nouveau: formData.nouveau || false,
+      promo: formData.promo || false,
+    };
+
     if (editingModel) {
-      // Modification
-      setModels(models.map(m => m.id === editingModel.id ? { ...m, ...formData } as Lunette : m));
+      updateModel(editingModel.id, newModel);
     } else {
-      // Ajout
-      const newModel: Lunette = {
-        id: Date.now(),
-        nom: formData.nom!,
-        prix: formData.prix!,
-        categorie: formData.categorie!,
-        genre: formData.genre || 'mixte',
-        image: formData.image || 'placeholder.jpg',
-      };
-      setModels([...models, newModel]);
+      addModel(newModel);
     }
 
     setShowForm(false);
     setEditingModel(null);
-    alert("Modèle sauvegardé avec succès (dans la session actuelle)");
+    alert("✅ Modèle sauvegardé avec succès !");
   };
 
   const deleteModel = (id: number) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce modèle ?")) {
-      setModels(models.filter(m => m.id !== id));
+      contextDeleteModel(id);
     }
   };
 
@@ -90,8 +92,6 @@ export function AdminPage() {
   };
 
   const currentModels = getCurrentModels();
-
-  // ... (le formulaire de connexion reste le même)
 
   if (!isAuthenticated) {
     return (
@@ -133,15 +133,15 @@ export function AdminPage() {
         {/* Tabs */}
         <div className="flex border-b border-gray-200 dark:border-gray-700 mb-10 overflow-x-auto">
           {[
-            { key: 'hero', label: 'Hero (Accueil)' },
-            { key: 'featured', label: 'Nos Modèles Demandés' },
-            { key: 'soleil', label: 'Lunettes de Soleil' },
-            { key: 'photogrey', label: 'Lunettes Photogrey' },
-            { key: 'enfant', label: 'Lunettes Enfant' },
+            { key: 'hero' as const, label: 'Hero (Accueil)' },
+            { key: 'featured' as const, label: 'Nos Modèles Demandés' },
+            { key: 'soleil' as const, label: 'Lunettes de Soleil' },
+            { key: 'photogrey' as const, label: 'Lunettes Photogrey' },
+            { key: 'enfant' as const, label: 'Lunettes Enfant' },
           ].map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key as 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant')}
+              onClick={() => setActiveTab(tab.key)}
               className={`px-8 py-5 font-medium whitespace-nowrap transition-all border-b-4 ${
                 activeTab === tab.key 
                   ? 'border-orange-500 text-orange-500' 
@@ -153,7 +153,6 @@ export function AdminPage() {
           ))}
         </div>
 
-        {/* Bouton Ajouter */}
         <div className="mb-8 flex justify-end">
           <button 
             onClick={openAddForm}
@@ -163,7 +162,6 @@ export function AdminPage() {
           </button>
         </div>
 
-        {/* Grille */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {currentModels.map((model) => (
             <div key={model.id} className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all">
@@ -198,7 +196,7 @@ export function AdminPage() {
         </div>
       </div>
 
-      {/* Formulaire Modal */}
+      {/* Modal Formulaire */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-6">
           <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 w-full max-w-lg">
@@ -226,7 +224,7 @@ export function AdminPage() {
               />
               <select
                 value={formData.categorie || ''}
-                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as 'soleil' | 'photogrey' | 'enfant' })}
+                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as Lunette['categorie'] })}
                 className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
                 required
               >
@@ -241,6 +239,7 @@ export function AdminPage() {
                 value={formData.image || ''}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                 className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                required
               />
               <div className="flex gap-4">
                 <button type="submit" className="flex-1 bg-green-600 text-white py-4 rounded-2xl font-bold hover:bg-green-700">
