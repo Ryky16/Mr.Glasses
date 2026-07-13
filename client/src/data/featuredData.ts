@@ -4,7 +4,7 @@ export const featuredData: Lunette[] = [
   { id: 101, nom: "Lunette Moscot", prix: "10 000 FCFA", categorie: "photogrey", genre: "homme", nouveau: true, image: "featured/mosgold.JPG" },
   { id: 102, nom: "Photogrey femme", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/femphotogreyros.jpeg" },
   { id: 103, nom: "Lunette Police", prix: "10 000 FCFA", categorie: "photogrey", genre: "homme", nouveau: true, image: "featured/pomaro.JPG" },
-  { id: 104, nom: "Lunette Emporio", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", promo: true, image: "featured/solempnoir.JPG" },
+  { id: 104, nom: "Lunette DIOR", prix: "8 000 FCFA", categorie: "soleil", genre: "homme", promo: true, image: "featured/soledionoir.JPG" },
   { id: 105, nom: "Lunette GUCCI", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", promo: true, image: "featured/guccired.JPG" },
   { id: 106, nom: "Lunette de soleil Moscot", prix: "8 000 FCFA", categorie: "enfant", genre: "enfant", nouveau: true, image: "featured/Mascomaronenf.JPG" },
   { id: 107, nom: "Lunette Photogrey", prix: "10 000 FCFA", categorie: "photogrey", genre: "femme", nouveau: true, image: "featured/jaun.JPG" },
