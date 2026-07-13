@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2, LogOut, Save, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, LogOut, Save, X, RefreshCw } from 'lucide-react';
 import type { Lunette } from '../types/Lunette';
 import { useData } from '../context/DataContext';
 import { heroData } from '../data/heroData';
 import { featuredData } from '../data/featuredData';
 
 export function AdminPage() {
-  const { models, addModel, updateModel, deleteModel: contextDeleteModel } = useData();
+  const { models, addModel, updateModel, deleteModel: contextDeleteModel, resetToDefault } = useData();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -121,13 +121,22 @@ export function AdminPage() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-black">Administration Peter Optique</h1>
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold transition"
-          >
-            <LogOut size={20} />
-            Déconnexion
-          </button>
+          <div className="flex gap-4">
+            <button 
+              onClick={resetToDefault}
+              className="flex items-center gap-3 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-4 rounded-2xl font-bold transition"
+            >
+              <RefreshCw size={20} />
+              Réinitialiser
+            </button>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold transition"
+            >
+              <LogOut size={20} />
+              Déconnexion
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -224,7 +233,7 @@ export function AdminPage() {
               />
               <select
                 value={formData.categorie || ''}
-                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as Lunette['categorie'] })}
+                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as 'soleil' | 'photogrey' | 'enfant' })}
                 className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
                 required
               >

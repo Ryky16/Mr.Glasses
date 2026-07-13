@@ -7,7 +7,7 @@ import CategoryPage from './pages/CategoryPage';
 import { OrdonnancePage } from './pages/OrdonnancePage';
 import { LentillesPage } from './pages/LentillesPage';
 import { AdminPage } from './pages/AdminPage';
-import { lunettesData } from './data/lunettesData';
+import { useData } from './context/DataContext';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -18,6 +18,7 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { models } = useData();
   const location = useLocation();
   const isAdminPage = location.pathname === '/admin';
 
@@ -29,15 +30,14 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/soleil" element={<CategoryPage categorie="soleil" lunettesData={lunettesData} />} />
-        <Route path="/photogrey" element={<CategoryPage categorie="photogrey" lunettesData={lunettesData} />} />
-        <Route path="/enfant" element={<CategoryPage categorie="enfant" lunettesData={lunettesData} />} />
+        <Route path="/soleil" element={<CategoryPage categorie="soleil" lunettesData={models} />} />
+        <Route path="/photogrey" element={<CategoryPage categorie="photogrey" lunettesData={models} />} />
+        <Route path="/enfant" element={<CategoryPage categorie="enfant" lunettesData={models} />} />
         <Route path="/ordonnance" element={<OrdonnancePage />} />
         <Route path="/lentilles" element={<LentillesPage />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
 
-      {/* Footer - Visible seulement sur les pages client */}
       {!isAdminPage && (
         <footer className="bg-black text-white py-20">
           <div className="max-w-7xl mx-auto px-6">
