@@ -54,7 +54,7 @@ export function Card({ lunette }: { lunette: Lunette }) {
 
         <button
           onClick={handleCommande}
-          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 rounded-2xl text-xl transition-all hover:scale-105 active:scale-95 shadow-lg"
+          className="w-full max-w-xs mx-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-lg text-lg transition-all hover:scale-102 active:scale-95 shadow-md"
         >
           Commander sur WhatsApp
         </button>
