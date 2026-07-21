@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2, LogOut, Save, X, RefreshCw } from 'lucide-react';
+import { Plus, Edit2, Trash2, LogOut, Save, X, Upload, Menu, RefreshCw } from 'lucide-react';
 import type { Lunette } from '../types/Lunette';
 import { useData } from '../context/DataContext';
 import { heroData } from '../data/heroData';
@@ -15,6 +15,8 @@ export function AdminPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingModel, setEditingModel] = useState<Lunette | null>(null);
   const [formData, setFormData] = useState<Partial<Lunette>>({});
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const ADMIN_PASSWORD = "peter2025";
 
@@ -31,18 +33,23 @@ export function AdminPage() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     setPassword('');
+    setMobileMenuOpen(false);
   };
 
   const openAddForm = () => {
     setEditingModel(null);
     setFormData({});
+    setPreviewUrl(null);
     setShowForm(true);
+    setMobileMenuOpen(false);
   };
 
   const openEditForm = (model: Lunette) => {
     setEditingModel(model);
     setFormData({ ...model });
+    setPreviewUrl(`/images/${model.image}`);
     setShowForm(true);
+    setMobileMenuOpen(false);
   };
 
   const saveModel = (e: React.FormEvent) => {
@@ -71,7 +78,8 @@ export function AdminPage() {
 
     setShowForm(false);
     setEditingModel(null);
-    alert("✅ Modèle sauvegardé avec succès !");
+    setPreviewUrl(null);
+    alert("✅ Modèle sauvegardé avec succès ! (Copie la photo dans public/images)");
   };
 
   const deleteModel = (id: number) => {
@@ -121,10 +129,10 @@ export function AdminPage() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-black">Administration Peter Optique</h1>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
             <button 
               onClick={resetToDefault}
-              className="flex items-center gap-3 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-4 rounded-2xl font-bold transition"
+              className="hidden md:flex items-center gap-3 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-4 rounded-2xl font-bold transition"
             >
               <RefreshCw size={20} />
               Réinitialiser
@@ -136,21 +144,27 @@ export function AdminPage() {
               <LogOut size={20} />
               Déconnexion
             </button>
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-3"
+            >
+              <Menu size={28} />
+            </button>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-gray-700 mb-10 overflow-x-auto">
+        {/* Tabs Desktop */}
+        <div className="hidden md:flex border-b border-gray-200 dark:border-gray-700 mb-10 overflow-x-auto">
           {[
-            { key: 'hero' as const, label: 'Hero (Accueil)' },
-            { key: 'featured' as const, label: 'Nos Modèles Demandés' },
-            { key: 'soleil' as const, label: 'Lunettes de Soleil' },
-            { key: 'photogrey' as const, label: 'Lunettes Photogrey' },
-            { key: 'enfant' as const, label: 'Lunettes Enfant' },
+            { key: 'hero', label: 'Hero (Accueil)' },
+            { key: 'featured', label: 'Nos Modèles Demandés' },
+            { key: 'soleil', label: 'Lunettes de Soleil' },
+            { key: 'photogrey', label: 'Lunettes Photogrey' },
+            { key: 'enfant', label: 'Lunettes Enfant' },
           ].map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => setActiveTab(tab.key as 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant')}
               className={`px-8 py-5 font-medium whitespace-nowrap transition-all border-b-4 ${
                 activeTab === tab.key 
                   ? 'border-orange-500 text-orange-500' 
@@ -161,6 +175,30 @@ export function AdminPage() {
             </button>
           ))}
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white dark:bg-gray-900 rounded-3xl shadow-xl p-6 mb-8">
+            {[
+              { key: 'hero', label: 'Hero (Accueil)' },
+              { key: 'featured', label: 'Nos Modèles Demandés' },
+              { key: 'soleil', label: 'Lunettes de Soleil' },
+              { key: 'photogrey', label: 'Lunettes Photogrey' },
+              { key: 'enfant', label: 'Lunettes Enfant' },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => {
+                  setActiveTab(tab.key as 'hero' | 'featured' | 'soleil' | 'photogrey' | 'enfant');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full text-left py-4 px-6 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-2xl transition"
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="mb-8 flex justify-end">
           <button 
@@ -208,49 +246,95 @@ export function AdminPage() {
       {/* Modal Formulaire */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-6">
-          <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 w-full max-w-lg">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">{editingModel ? 'Modifier le Modèle' : 'Ajouter un Nouveau Modèle'}</h2>
               <button onClick={() => setShowForm(false)}><X size={28} /></button>
             </div>
 
             <form onSubmit={saveModel} className="space-y-6">
-              <input
-                type="text"
-                placeholder="Nom du modèle"
-                value={formData.nom || ''}
-                onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
-                required
-              />
-              <input
-                type="text"
-                placeholder="Prix (ex: 38 000 FCFA)"
-                value={formData.prix || ''}
-                onChange={(e) => setFormData({ ...formData, prix: e.target.value })}
-                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
-                required
-              />
-              <select
-                value={formData.categorie || ''}
-                onChange={(e) => setFormData({ ...formData, categorie: e.target.value as 'soleil' | 'photogrey' | 'enfant' })}
-                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
-                required
-              >
-                <option value="">Sélectionner la catégorie</option>
-                <option value="soleil">Lunettes de Soleil</option>
-                <option value="photogrey">Lunettes Photogrey</option>
-                <option value="enfant">Lunettes Enfant</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Nom de l'image (ex: aviator.jpg)"
-                value={formData.image || ''}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
-                required
-              />
-              <div className="flex gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Colonne gauche */}
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Nom du modèle</label>
+                    <input
+                      type="text"
+                      placeholder="Nom du modèle"
+                      value={formData.nom || ''}
+                      onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                      className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Prix</label>
+                    <input
+                      type="text"
+                      placeholder="38 000 FCFA"
+                      value={formData.prix || ''}
+                      onChange={(e) => setFormData({ ...formData, prix: e.target.value })}
+                      className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Colonne droite */}
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Catégorie</label>
+                    <select
+                      value={formData.categorie || ''}
+                      onChange={(e) => setFormData({ ...formData, categorie: e.target.value as Lunette['categorie'] })}
+                      className="w-full px-5 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl"
+                      required
+                    >
+                      <option value="">Sélectionner la catégorie</option>
+                      <option value="hero">Hero (Accueil)</option>
+                      <option value="featured">Nos Modèles Demandés</option>
+                      <option value="soleil">Lunettes de Soleil</option>
+                      <option value="photogrey">Lunettes Photogrey</option>
+                      <option value="enfant">Lunettes Enfant</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Photo du modèle</label>
+                    <div className="border border-dashed border-gray-400 rounded-2xl p-6 text-center">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const url = URL.createObjectURL(file);
+                            setPreviewUrl(url);
+                            setFormData({ ...formData, image: file.name });
+                          }
+                        }}
+                        className="hidden"
+                        id="image-upload"
+                      />
+                      <label htmlFor="image-upload" className="cursor-pointer flex flex-col items-center">
+                        <Upload size={48} className="text-gray-400 mb-3" />
+                        <p className="text-sm text-gray-600">Cliquez pour sélectionner une photo</p>
+                        <p className="text-xs text-gray-500 mt-1">JPG, PNG, etc.</p>
+                      </label>
+                    </div>
+
+                    {previewUrl && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 mb-2">Aperçu :</p>
+                        <img src={previewUrl} alt="preview" className="w-full h-48 object-cover rounded-2xl" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 pt-4">
                 <button type="submit" className="flex-1 bg-green-600 text-white py-4 rounded-2xl font-bold hover:bg-green-700">
                   <Save className="inline mr-2" /> Sauvegarder
                 </button>
