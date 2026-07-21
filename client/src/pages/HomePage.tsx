@@ -17,7 +17,7 @@ export function HomePage() {
 
   return (
     <>
-      {/* ==================== HERO SECTION - Style Moderne ==================== */}
+      {/* HERO SECTION */}
       <section className="relative h-screen flex items-center overflow-hidden">
         {heroData.map((item, index) => (
           <div
